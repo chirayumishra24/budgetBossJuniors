@@ -189,6 +189,35 @@ canvas {
   box-shadow: var(--shadow-soft);
 }
 
+body .image-container,
+body .image-container-large,
+body .money-type-card .image-container {
+  width: 100%;
+  max-width: 100%;
+  height: auto !important;
+  min-height: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body .image-container img,
+body .image-container-large img,
+body .money-type-card .image-container img,
+body .budget-image,
+body .budget-image-large,
+body .large-budget-image,
+body .crypto-image,
+body .capstone-image-large {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  aspect-ratio: auto !important;
+}
+
 .capstone-image-large {
   width: 100%;
   height: auto;
@@ -587,6 +616,12 @@ button {
     min-height: 14rem;
     height: 14rem;
     margin: 1.25rem 0;
+  }
+
+  body .image-container,
+  body .image-container-large,
+  body .money-type-card .image-container {
+    padding: 0.5rem;
   }
 
   .audio-container audio {

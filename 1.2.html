@@ -171,17 +171,20 @@ footer a:hover {
 }
 .money-type-card .image-container {
     width: 100%;
-    height: 200px;
+    height: auto;
+    min-height: 0;
     border: 2px solid var(--primary);
     border-radius: 8px;
-    overflow: hidden;
+    overflow: visible;
     box-shadow: 0 4px 6px rgba(0,0,0,.1);
     flex-shrink: 0;
+    padding: .75rem;
+    background: rgba(255,255,255,.8);
 }
 .money-type-card .image-container img {
     width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
+    height: auto !important;
+    object-fit: contain !important;
     object-position: center !important;
     display: block !important;
 }
@@ -329,7 +332,8 @@ html, body {
     }
     .money-type-card .image-container {
         width: 100% !important;
-        height: 180px !important;
+        height: auto !important;
+        padding: .5rem !important;
     }
 
     /* Table */
