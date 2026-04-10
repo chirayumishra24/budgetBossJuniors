@@ -1,0 +1,683 @@
+<div>
+<div><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></div>
+</div>
+<title></title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;family=Roboto:wght@400;500&amp;display=swap" rel="stylesheet" /><link href="app-responsive.css" rel="stylesheet" /><script src="https://cdn.tailwindcss.com"></script><script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<style type="text/css">:root {
+    --primary: #E0C36C;
+    --secondary: #3A6351;
+    --accent: #F7E9A0;
+}
+.dark {
+    --primary: #F7E9A0;
+    --secondary: #E0C36C;
+    --accent: #3A6351;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+    color: var(--secondary);
+    background-color: #f0f0f0;
+    overflow-x: hidden;
+    margin: 0;
+}
+.dark body {
+    background-color: #1a1a1a;
+}
+
+/* === SMOOTH GIF BACKGROUND === */
+.bg-gif {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    opacity: 0.45;
+    pointer-events: none;
+    z-index: -1;
+    background: url('https://login.skillizee.io/s/articles/69032135361cbb0cdc00b38c/images/flyyyyy.gif') center/cover no-repeat;
+    animation: subtleZoom 18s ease-in-out infinite alternate;
+}
+.dark .bg-gif {
+    opacity: 0.35;
+    filter: brightness(0.85);
+}
+@keyframes subtleZoom {
+    0% { background-size: 100%; }
+    100% { background-size: 115%; }
+}
+
+/* Fade-in on Scroll */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hover-scale {
+    transition: transform 0.3s ease;
+}
+.hover-scale:hover {
+    transform: scale(1.05);
+}
+
+/* Cards */
+.budget-card, .activity-card {
+    background: var(--accent);
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+.budget-card:hover, .activity-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+.budget-card::before, .activity-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+}
+
+.budget-definition {
+    font-style: italic;
+    color: var(--secondary);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+.budget-characteristic {
+    background: rgba(224, 195, 108, 0.1);
+    padding: 0.75rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary);
+    margin-top: 0.5rem;
+}
+
+/* Tables */
+.budget-table {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-top: 2rem;
+}
+.budget-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.budget-table th, .budget-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+.budget-table th {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: var(--secondary);
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+}
+.budget-table tr:hover {
+    background: rgba(224, 195, 108, 0.05);
+}
+
+/* Progress Bar */
+.progress-container {
+    position: fixed;
+    top: 33.33vh;
+    right: 10px;
+    width: 8px;
+    height: 33.33vh;
+    background: rgba(0,0,0,0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    z-index: 20;
+}
+.progress-bar {
+    width: 100%;
+    height: 0;
+    background: #1B4D3E;
+    transition: height 0.3s ease;
+}
+
+/* Header */
+.header-bg {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Footer */
+footer {
+    background: var(--secondary);
+    color: var(--accent);
+    padding: 2rem;
+}
+footer a:hover {
+    color: var(--primary);
+}
+
+/* Large Images */
+.large-budget-image {
+    max-width: 600px;
+    width: 100%;
+    height: auto;
+    margin: 1.5rem auto;
+    display: block;
+    border-radius: 12px;
+    border: 3px solid var(--primary);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease;
+}
+.large-budget-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* YouTube */
+.youtube-video {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    margin: 1.5rem 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.youtube-video iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: 0;
+    border-radius: 12px;
+}
+
+/* Audio Container */
+.audio-container {
+    position: relative;
+    background: url('https://login.skillizee.io/s/articles/6909826eb2daa47d422b50af/images/Subtitle (4).gif') center center no-repeat;
+    background-size: contain;
+    border-radius: 16px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+    margin: 1rem auto;
+    width: 90%;
+    max-width: 900px;
+    aspect-ratio: 1920 / 1080;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1rem;
+}
+.audio-container audio {
+    width: 100%;
+    border-radius: 12px;
+    border: 2px solid #2D2B7E;
+    background: #F5F5FF;
+    height: 50px;
+    box-shadow: 0 3px 10px rgba(45, 43, 126, 0.3);
+}
+
+/* =====================================
+   GUSTORA FULLSCREEN BUTTON (Exact from Chapter 1.1)
+===================================== */
+#gustoraFullscreenBtn {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 99999;
+    width: 68px;
+    height: 68px;
+    background: linear-gradient(135deg, var(--primary), #c9a100);
+    border: 4px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(170,138,0,0.5), 0 0 30px rgba(255,215,0,0.4), inset 0 0 20px rgba(255,255,255,0.4);
+    backdrop-filter: blur(12px);
+    transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    animation: gentlePulse 4s infinite ease-in-out;
+}
+#gustoraFullscreenBtn:hover {
+    transform: scale(1.18) rotate(8deg);
+    box-shadow: 0 20px 50px rgba(170,138,0,0.7), 0 0 50px rgba(255,215,0,0.6), 0 0 60px rgba(225,37,27,0.3);
+    border-color: #e53e3e;
+}
+#gustoraFullscreenBtn svg {
+    width: 38px;
+    height: 38px;
+    stroke: #000;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+@keyframes gentlePulse {
+    0%, 100% { 
+        box-shadow: 0 10px 30px rgba(170,138,0,0.5), 0 0 30px rgba(255,215,0,0.4), inset 0 0 20px rgba(255,255,255,0.4); 
+    }
+    50% { 
+        box-shadow: 0 15px 40px rgba(170,138,0,0.6), 0 0 40px rgba(225,37,27,0.3), inset 0 0 25px rgba(255,255,255,0.5); 
+    }
+}
+#gustoraFullscreenBtn:active {
+    transform: scale(0.95);
+}
+
+/* =====================================
+   GLOBAL APP SAFETY
+===================================== */
+html, body {
+    overflow-x: hidden !important;
+}
+* {
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+/* =====================================
+   MOBILE RESPONSIVENESS (Matching Previous Chapters)
+===================================== */
+@media (max-width: 768px) {
+    .header-bg {
+        width: 95% !important;
+        padding: 1rem !important;
+    }
+    .header-bg h2 span {
+        font-size: 22px !important;
+    }
+    h3 {
+        font-size: 20px !important;
+    }
+    p {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    /* Large Images */
+    .large-budget-image {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 1rem auto;
+    }
+
+    /* Activity Inputs & Buttons */
+    .activity-card input[type="number"] {
+        font-size: 16px !important;
+        padding: 12px;
+    }
+    .activity-card button {
+        width: 100%;
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    /* Audio */
+    .audio-container {
+        width: 92% !important;
+        aspect-ratio: 16 / 9;
+    }
+    .audio-container audio {
+        height: 40px;
+    }
+
+    /* Hide heavy UI on mobile */
+    .progress-container {
+        display: none;
+    }
+    .bg-gif {
+        animation: none !important;
+        opacity: 0.2;
+    }
+
+    /* Disable hover effects */
+    .hover-scale:hover,
+    .budget-card:hover,
+    .activity-card:hover {
+        transform: none !important;
+        box-shadow: 0 4px 6px rgba(0,0,0,.1);
+    }
+
+    section {
+        margin-bottom: 1rem;
+        padding: 1rem !important;
+    }
+}
+
+/* Notes Panel */
+#notesBtn, #notesPanel {
+    position: fixed !important;
+    isolation: isolate;
+}
+#notesBtn {
+    bottom: 24px;
+    left: 24px;
+    z-index: 2147483647;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    background: #fff;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 0 25px rgba(250, 204, 21, 0.9);
+}
+#notesPanel {
+    bottom: 96px;
+    left: 24px;
+    width: 320px;
+    max-width: 90vw;
+    background: rgba(15, 23, 42, 0.96);
+    color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+    z-index: 2147483646;
+    display: none;
+    flex-direction: column;
+    backdrop-filter: blur(14px);
+}
+.notes-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+#notesArea {
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 14px;
+    height: 150px;
+    resize: none;
+    outline: none;
+}
+.notes-actions {
+    display: flex;
+    gap: 10px;
+    padding: 12px;
+}
+.notes-actions button {
+    flex: 1;
+    border: none;
+    border-radius: 8px;
+    padding: 8px;
+    cursor: pointer;
+}
+</style>
+<!-- SMOOTH GIF BACKGROUND -->
+<div class="bg-gif">&nbsp;</div>
+<!-- Progress Bar -->
+
+<div class="progress-container">
+<div class="progress-bar" id="progress-bar">&nbsp;</div>
+</div>
+<!-- Gustora Fullscreen Button -->
+
+<div id="gustoraFullscreenBtn"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6" viewbox="0 0 24 24"> <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path> </svg></div>
+
+<header class="text-center py-4 fade-in visible relative z-10">
+<div class="header-bg max-w-3xl mx-auto">
+<h2 class="text-2xl font-roboto mt-2 text-[var(--secondary)]"><strong><span style="font-size:48px;">Chapter 2.1 &ndash; Budgeting, Savings and Investment</span></strong></h2>
+</div>
+</header>
+<!-- Notes Button -->
+
+<p><button id="notesBtn">📝</button></p>
+
+<div id="notesPanel">
+<div class="notes-header"><span>My Notes</span><button id="closeNotes">✕</button></div>
+<textarea id="notesArea" placeholder="Write notes here..."></textarea>
+
+<div class="notes-actions"><button id="downloadNotes">Download</button><button id="clearNotes">Clear</button></div>
+</div>
+<!-- Audio -->
+
+<div class="audio-container">
+<audio controls="" controlslist="nodownload" oncontextmenu="return false;"><source src="https://pa2-cmd.github.io/audio-chapters-budget-boss/m2c1.mp3" type="audio/mp3" /> Your browser does not support the audio element.</audio>
+</div>
+
+<main class="max-w-4xl mx-auto px-4 space-y-6 relative z-10"><!-- Section 1: Budgeting Basics -->
+<section class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg fade-in">
+<h3 class="text-3xl font-poppins mb-6 text-[var(--primary)] hover-scale">Budgeting Basics!</h3>
+
+<div class="flex flex-col gap-6">
+<p class="text-lg mb-6">Budgeting is the process of planning your pocket money or income and expenses to manage your money effectively. It starts by estimating your monthly income&mdash;this is the money you receive after taxes and deductions. Next, you list your expenses, which include fixed costs like rent and phone bills, and variable costs like groceries and entertainment. Tracking where your money goes helps you make informed decisions to save more and avoid overspending. Common budgeting methods include the <strong>50/30/20 rule</strong>, where 50% of income goes to needs, 30% to wants, and 20% to savings and debt repayment.</p>
+
+<div class="flex justify-center"><img alt="Budgeting Basics Image" class="large-budget-image fade-in" src="https://login.skillizee.io/s/articles/69045c600e55fd333f2f14b9/images/2.1.png" /></div>
+</div>
+
+<div class="youtube-video"><iframe allowfullscreen="" src="https://www.youtube.com/embed/elAWwVZfMME?rel=0"></iframe></div>
+
+<div class="budget-characteristic"><strong>Key Insight:</strong> Budgeting empowers you to control your finances, prioritize goals, and reduce financial stress.</div>
+</section>
+<!-- Birthday Party Calculator -->
+
+<section class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg fade-in">
+<h3 class="text-3xl font-poppins mb-6 text-[var(--primary)] hover-scale">Birthday Party Calculator</h3>
+
+<div class="activity-card">
+<h4 class="text-xl font-poppins mb-3">Plan Your Party Budget</h4>
+
+<p class="mb-3">Enter your total budget and number of guests. Allocate amounts to categories (or enter 0 to skip). See per-person budget and remaining funds!</p>
+<label class="block mb-2 font-poppins">Total Party Budget (₹):</label> <input id="totalBudget" min="1" placeholder="e.g. 5000" type="number" /> <label class="block mb-2 mt-4 font-poppins">Number of People:</label> <input id="numPeople" min="1" placeholder="e.g. 20" type="number" /> <label class="block mb-2 mt-4 font-poppins">Food &amp; Drinks (₹):</label> <input id="food" min="0" placeholder="0 if not needed" type="number" /> <label class="block mb-2 mt-4 font-poppins">Cake (₹):</label> <input id="cake" min="0" placeholder="0 if not needed" type="number" /> <label class="block mb-2 mt-4 font-poppins">Decorations (₹):</label> <input id="decor" min="0" placeholder="0 if not needed" type="number" /> <label class="block mb-2 mt-4 font-poppins">Games/Entertainment (₹):</label> <input id="entertain" min="0" placeholder="0 if not needed" type="number" /> <label class="block mb-2 mt-4 font-poppins">Gifts (₹):</label> <input id="gifts" min="0" placeholder="0 if not needed" type="number" /><button onclick="calculateParty()">Calculate</button>
+
+<div class="budget-result" id="partyResult">&nbsp;</div>
+</div>
+</section>
+<!-- Savings -->
+
+<section class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg fade-in">
+<h3 class="text-3xl font-poppins mb-6 text-[var(--primary)] hover-scale">Savings</h3>
+
+<div class="budget-card">
+<h4 class="text-2xl font-poppins mb-2 text-[var(--secondary)]">What is Saving?</h4>
+
+<p class="budget-definition">Saving means setting aside a part of your income regularly for future needs or emergencies. Building an emergency fund can protect you from unexpected expenses. Savings could be short-term for goals like vacations or long-term for buying a home or retirement. Automating your savings can help make regular saving easier and more consistent.</p>
+
+<div class="flex justify-center"><img alt="Savings Image 1" class="large-budget-image" src="https://login.skillizee.io/s/articles/69045c600e55fd333f2f14b9/images/Gemini_Generated_Image_neeui1neeui1neeu.png" /></div>
+</div>
+
+<div class="youtube-video"><iframe allowfullscreen="" src="https://www.youtube.com/embed/fKaOWnrTi9Q?rel=0;end=203"></iframe></div>
+
+<div class="budget-characteristic"><strong>Why Save?</strong> Savings help you reach both short-term goals, like buying a new gadget or going on a trip, and long-term goals, like buying a bike, a car, or funding your college education. Building an emergency fund protects you from financial stress when life doesn&rsquo;t go as planned. The earlier you start saving, the faster your money can grow, especially if it earns interest in a bank account.</div>
+
+<div class="budget-characteristic mt-4"><strong>Where to Save:</strong> For small, short-term savings, you might use a piggy bank or cash envelope at home. For larger amounts or long-term savings, it&rsquo;s better to use a financial institution like a bank, because your money is safer and can earn interest, helping it grow over time.</div>
+
+<div class="budget-characteristic mt-4"><strong>How Savings Accounts Work:</strong> When you deposit money in a savings account, the bank pays you interest. This means the bank uses your money to lend to others, and as a reward, you receive a small extra amount, called interest. The amount you earn depends on the bank&rsquo;s interest rate&mdash;some banks pay very little, while others pay more. Not only do you earn interest on your original deposit, but also on the interest you already earned&mdash;this is called <strong>compounding interest</strong>, and it helps your savings grow even faster.</div>
+
+<div class="budget-characteristic mt-4"><strong>How Much Should You Save?</strong> Experts recommend starting with an emergency fund, which is generally 3&ndash;6 months&rsquo; worth of living expenses. After building your emergency fund, set regular savings goals, such as saving 10% of your monthly income if possible. Automating your savings&mdash;such as setting up an automatic transfer to your savings account&mdash;can help you stay consistent.</div>
+
+<div class="budget-characteristic mt-4"><strong>Making Saving a Habit:</strong> Treat saving as a priority, not something you do only after all spending. Decide an amount or percentage to save every time you receive money, and stick to it. Remember: every rupee saved brings you closer to your financial goals and helps you feel prepared and confident about your future.</div>
+
+<div class="flex justify-center"><img alt="Savings Image 2" class="large-budget-image" src="https://login.skillizee.io/s/articles/69045c600e55fd333f2f14b9/images/generated-image.png" /></div>
+</section>
+<!-- Riya's Story -->
+
+<section class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg fade-in">
+<h3 class="text-3xl font-poppins mb-6 text-[var(--primary)] hover-scale">Real-Life Situation: Meet Riya!</h3>
+
+<div class="budget-card">
+<p class="mb-3">Riya is a 10-year-old student who loves reading storybooks. She wants to buy a new storybook that costs <strong>₹600</strong>. Her parents give her <strong>₹100 pocket money every week</strong>. Riya decides to save a part of it every week instead of spending it all on snacks.</p>
+
+<p class="mb-3"><strong>If she saves ₹50 each week, how many weeks will she need to buy her book?</strong></p>
+
+<div class="activity-card"><label class="block mb-2 font-poppins">Your Answer (weeks):</label> <input id="riyaWeeks" min="1" placeholder="Enter number" type="number" /><button onclick="checkRiya()">Check Answer</button>
+
+<div class="feedback" id="riyaFeedback">&nbsp;</div>
+</div>
+
+<div class="budget-characteristic mt-4"><strong>Think and Discuss:</strong> How many weeks will it take Riya to save ₹600 if she saves ₹50 each week? What could she do to reach her goal faster? (e.g., Save a little more, do extra chores)</div>
+</div>
+</section>
+<!-- Investment -->
+
+<section class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg fade-in">
+<h3 class="text-3xl font-poppins mb-6 text-[var(--primary)] hover-scale">Investment</h3>
+
+<div class="budget-card">
+<h4 class="text-2xl font-poppins mb-2 text-[var(--secondary)]">The Basics of Investing</h4>
+
+<p class="budget-definition">Investment involves using your saved money to buy assets like stocks, bonds, or mutual funds, aiming to grow your wealth over time. Unlike savings, investments carry risks but offer the potential for higher returns. Understanding investment basics and risks helps you make informed choices that align with your financial goals and timeframe.</p>
+
+<div class="flex justify-center"><img alt="Investment Image" class="large-budget-image" src="https://login.skillizee.io/s/articles/69045c600e55fd333f2f14b9/images/generated-image (1).png" /></div>
+</div>
+
+<div class="youtube-video"><iframe allowfullscreen="" src="https://www.youtube.com/embed/qIw-yFC-HNU?rel=0"></iframe></div>
+
+<div class="budget-characteristic"><strong>Real-Life Example: &ldquo;Aarav&rsquo;s Lemonade Stand&rdquo;</strong></div>
+
+<div class="budget-card mt-4">
+<p class="mb-3">Aarav loves making lemonade. During summer vacation, he decides to open a lemonade stand outside his house.</p>
+
+<p class="mb-3">Aarav has ₹200 in his piggy bank. He uses ₹150 to buy lemons, sugar, and cups &mdash; this is his <strong>investment</strong>. He sells lemonade to his neighbors and earns ₹300 in total.</p>
+
+<p class="mb-3">Now, let&rsquo;s see what happened:</p>
+
+<ul class="list-disc pl-6 mb-3">
+	<li>He spent ₹150 (his investment).</li>
+	<li>He earned ₹300 from selling lemonade.</li>
+	<li>So, he made a profit of ₹150 &mdash; that&rsquo;s the <strong>return on his investment</strong>!</li>
+</ul>
+
+<p>By investing his money wisely, Aarav made his savings grow.</p>
+</div>
+</section>
+</main>
+
+<footer class="text-center py-8 mt-12 relative z-10">
+<div class="max-w-4xl mx-auto">
+<h4 class="text-xl font-poppins mb-2">Budget Boss</h4>
+
+<p class="text-sm">SkilliZee.io</p>
+</div>
+</footer>
+<script>
+// Fullscreen Button
+document.getElementById('gustoraFullscreenBtn').addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen?.() ||
+        document.documentElement.webkitRequestFullscreen?.() ||
+        document.documentElement.msRequestFullscreen?.();
+    } else {
+        document.exitFullscreen?.() ||
+        document.webkitExitFullscreen?.() ||
+        document.msExitFullscreen?.();
+    }
+});
+
+// Notes Functionality
+document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.getElementById("notesBtn");
+    const panel = document.getElementById("notesPanel");
+    const close = document.getElementById("closeNotes");
+    const area = document.getElementById("notesArea");
+    const clearBtn = document.getElementById("clearNotes");
+    const downloadBtn = document.getElementById("downloadNotes");
+    const STORAGE_KEY = "user_notes_cache";
+
+    document.body.appendChild(panel);
+    document.body.appendChild(btn);
+
+    area.value = localStorage.getItem(STORAGE_KEY) || "";
+
+    btn.onclick = () => panel.style.display = (panel.style.display === "flex") ? "none" : "flex";
+    close.onclick = () => panel.style.display = "none";
+
+    area.addEventListener("input", () => localStorage.setItem(STORAGE_KEY, area.value));
+
+    clearBtn.onclick = () => {
+        if (confirm("Clear all notes?")) {
+            area.value = "";
+            localStorage.removeItem(STORAGE_KEY);
+        }
+    };
+
+    downloadBtn.onclick = () => {
+        const blob = new Blob([area.value], { type: "text/plain" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url; a.download = "my-notes.txt"; a.click();
+        URL.revokeObjectURL(url);
+    };
+});
+
+// Fade-in Observer
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Progress Bar
+const progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.height = `${(scrollTop / docHeight) * 100}%`;
+});
+
+// Confetti on Scroll End
+let confettiFired = false;
+window.addEventListener('scroll', () => {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50 && !confettiFired) {
+        confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+        confettiFired = true;
+    }
+});
+
+// Birthday Party Calculator
+function calculateParty() {
+    const total = parseFloat(document.getElementById('totalBudget').value);
+    const people = parseInt(document.getElementById('numPeople').value);
+    const food = parseFloat(document.getElementById('food').value) || 0;
+    const cake = parseFloat(document.getElementById('cake').value) || 0;
+    const decor = parseFloat(document.getElementById('decor').value) || 0;
+    const entertain = parseFloat(document.getElementById('entertain').value) || 0;
+    const gifts = parseFloat(document.getElementById('gifts').value) || 0;
+    const resultDiv = document.getElementById('partyResult');
+
+    if (isNaN(total) || isNaN(people) || total <= 0 || people <= 0) {
+        resultDiv.textContent = "Please enter valid total budget and number of people.";
+        resultDiv.className = "budget-result error";
+        resultDiv.style.display = "block";
+        return;
+    }
+
+    const perPerson = total / people;
+    const spent = food + cake + decor + entertain + gifts;
+    let msg = `Per person budget: ₹${perPerson.toFixed(2)}. `;
+
+    if (spent > total) {
+        msg += `Over budget by ₹${(spent - total).toFixed(2)}! Adjust allocations.`;
+        resultDiv.className = "budget-result error";
+    } else {
+        msg += `Total allocated: ₹${spent.toFixed(2)}. Remaining: ₹${(total - spent).toFixed(2)}. Great planning!`;
+        resultDiv.className = "budget-result success";
+        confetti({ particleCount: 50, spread: 30, origin: { y: 0.6 } });
+    }
+    resultDiv.textContent = msg;
+    resultDiv.style.display = "block";
+}
+
+// Riya's Saving Check
+function checkRiya() {
+    const answer = parseInt(document.getElementById('riyaWeeks').value);
+    const feedback = document.getElementById('riyaFeedback');
+    if (answer === 12) {
+        feedback.textContent = "Correct! ₹600 ÷ ₹50 = 12 weeks. Well done!";
+        feedback.className = "feedback correct";
+        confetti({ particleCount: 30, spread: 60 });
+    } else {
+        feedback.textContent = "Incorrect. Hint: Divide total cost by weekly savings. Try again!";
+        feedback.className = "feedback incorrect";
+    }
+    feedback.style.display = "block";
+}
+</script>
+

@@ -1,0 +1,922 @@
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<title></title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;family=Roboto:wght@400;500&amp;display=swap" rel="stylesheet" /><link href="app-responsive.css" rel="stylesheet" /><script src="https://cdn.tailwindcss.com"></script><script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script><script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style type="text/css">:root {
+    --primary: #E0C36C;
+    --secondary: #3A6351;
+    --accent: #F7E9A0;
+    --profit: #22c55e;
+    --loss: #ef4444;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+    color: var(--secondary);
+    background-color: #f0f0f0;
+    overflow-x: hidden;
+    margin: 0;
+}
+.bg-gif {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    opacity: 0.45;
+    pointer-events: none;
+    z-index: -1;
+    background: url('https://login.skillizee.io/s/articles/69032135361cbb0cdc00b38c/images/flyyyyy.gif') center/cover no-repeat;
+    background-size: cover;
+    animation: subtleZoom 18s ease-in-out infinite alternate;
+}
+@keyframes subtleZoom {
+    0% { background-size: 100%; }
+    100% { background-size: 115%; }
+}
+.fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+.hover-scale { transition: transform 0.3s ease; }
+.hover-scale:hover { transform: scale(1.05); }
+.capstone-card {
+    background: var(--accent);
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+.capstone-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+.capstone-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+}
+.header-bg {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.investment-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+.investment-table th,
+.investment-table td {
+    padding: 0.75rem;
+    text-align: center;
+    border-bottom: 1px solid #e5e7eb;
+}
+.investment-table th {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: var(--secondary);
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+}
+.investment-table input, .investment-table select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--primary);
+    border-radius: 6px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    transition: border 0.2s;
+}
+.investment-table input:focus, .investment-table select:focus {
+    outline: none;
+    border-color: var(--secondary);
+}
+.investment-table .result {
+    font-weight: bold;
+    color: var(--profit);
+}
+.progress-container {
+    position: fixed;
+    top: 33.33vh;
+    right: 10px;
+    width: 8px;
+    height: 33.33vh;
+    background: rgba(0,0,0,0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    z-index: 100;
+}
+.progress-bar {
+    width: 100%;
+    height: 0;
+    background: #1B4D3E;
+    transition: height 0.3s ease;
+}
+.chart-container {
+    position: relative;
+    height: 300px;
+    margin: 2rem 0;
+    max-width: 100%;
+}
+@media (max-width: 640px) { .chart-container { height: 220px; } }
+.summary-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+.formula-box {
+    background: #f9f9f9;
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 1rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    text-align: center;
+    margin: 1rem 0;
+}
+footer {
+    background: var(--secondary);
+    color: var(--accent);
+    padding: 2rem;
+    text-align: center;
+}
+.image-container-large {
+    width: 100%;
+    max-width: 500px;
+    margin: 2rem auto;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    border: 3px solid var(--primary);
+}
+.capstone-image-large {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.4s ease;
+}
+.capstone-image-large:hover { transform: scale(1.05); }
+.btn {
+    background: var(--primary);
+    color: var(--secondary);
+    padding: 0.75rem 1.75rem;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    min-width: 140px;
+}
+.btn:hover {
+    background: var(--secondary);
+    color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+.btn-reset { background: #6b7280; color: white; }
+.btn-reset:hover { background: #4b5563; }
+.btn-toggle { background: #e5e7eb; color: #374151; font-size: 0.8rem; padding: 0.5rem 1rem; }
+@keyframes slide-down {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+.animate-slide-down { animation: slide-down 1s ease-out; }
+
+/* =====================================
+   🌍 GLOBAL RESET + APP VIEW FIX
+===================================== */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+}
+
+/* Prevent overflow from ANY element */
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+/* Fix LMS / iframe shifting */
+body {
+  position: relative;
+  left: 0 !important;
+  right: 0 !important;
+}
+
+/* =====================================
+   📦 GLOBAL LAYOUT FIX
+===================================== */
+main, section, div {
+  max-width: 100%;
+}
+
+.mx-auto {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* =====================================
+   🖼 MEDIA FIX
+===================================== */
+img, video, iframe {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* =====================================
+   📊 TABLE FIX (ALL PAGES)
+===================================== */
+.table-wrapper,
+.budget-table,
+.investment-table,
+.popular-table {
+  overflow-x: auto;
+}
+
+table {
+  min-width: 600px;
+  width: 100%;
+}
+
+th, td {
+  padding: 10px;
+}
+
+/* =====================================
+   📈 CHART FIX (ALL SIMULATORS)
+===================================== */
+canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+
+.chart-container {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* =====================================
+   🔊 AUDIO FIX
+===================================== */
+.audio-container {
+  width: 100% !important;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  background-size: contain !important;
+}
+
+.audio-container audio {
+  width: 100%;
+  height: 45px;
+}
+
+/* =====================================
+   🔘 BUTTON + INPUT FIX
+===================================== */
+button, .btn, .submit-btn {
+  min-height: 44px;
+  cursor: pointer;
+}
+
+input, select {
+  width: 100%;
+}
+
+/* =====================================
+   📱 MOBILE RESPONSIVE
+===================================== */
+@media (max-width: 768px) {
+
+  /* Typography */
+  h1, h2, h3 {
+    font-size: 20px !important;
+    line-height: 1.3;
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* Header */
+  .header-bg {
+    padding: 1rem !important;
+  }
+
+  /* Cards */
+  .capstone-card,
+  .activity-card,
+  .budget-card {
+    padding: 1rem !important;
+  }
+
+  /* Buttons full width */
+  button, .btn, .submit-btn {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  /* Inputs */
+  input, select {
+    font-size: 16px;
+  }
+
+  /* Grid → stack */
+  .grid,
+  .grid-cols-2,
+  .grid-cols-3 {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem;
+  }
+
+  /* Tables compact */
+  table {
+    font-size: 12px;
+  }
+
+  th, td {
+    padding: 8px;
+  }
+
+  /* Audio */
+  .audio-container audio {
+    height: 40px;
+  }
+
+  /* Remove heavy UI */
+  .progress-container {
+    display: none;
+  }
+
+  /* Performance fix */
+  .bg-gif {
+    animation: none !important;
+    opacity: 0.2;
+  }
+}
+
+/* =====================================
+   ⚡ PERFORMANCE + SAFETY
+===================================== */
+
+/* Remove horizontal scroll forever */
+html, body {
+  overflow-x: hidden !important;
+}
+
+/* Prevent animation overflow */
+* {
+  max-width: 100%;
+}
+
+/* Smooth transitions */
+button, .btn {
+  transition: 0.2s ease;
+}
+</style>
+<div class="bg-gif">&nbsp;</div>
+
+<div class="progress-container">
+<div class="progress-bar" id="progress-bar" style="height: 27.7104%;">&nbsp;</div>
+</div>
+<!-- GUSTORA THEMED FULLSCREEN BUTTON -->
+
+<div id="gustoraFullscreenBtn"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6" viewbox="0 0 24 24"> <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path> </svg></div>
+<style type="text/css">#gustoraFullscreenBtn {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 99999;
+  width: 68px;
+  height: 68px;
+  background: linear-gradient(135deg, var(--brand-gold), #c9a100);
+  border: 4px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 10px 30px rgba(170, 138, 0, 0.5),
+    0 0 30px rgba(255, 215, 0, 0.4),
+    inset 0 0 20px rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  animation: gentlePulse 4s infinite ease-in-out;
+}
+
+#gustoraFullscreenBtn:hover {
+  transform: scale(1.18) rotate(8deg);
+  box-shadow: 
+    0 20px 50px rgba(170, 138, 0, 0.7),
+    0 0 50px var(--glow-gold),
+    0 0 60px var(--glow-red);
+  border-color: var(--brand-red);
+}
+
+#gustoraFullscreenBtn svg {
+  width: 38px;
+  height: 38px;
+  stroke: #000;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+/* Subtle floating + sauce-red glow on hover */
+@keyframes gentlePulse {
+  0%, 100% { box-shadow: 0 10px 30px rgba(170,138,0,0.5), 0 0 30px rgba(255,215,0,0.4), inset 0 0 20px rgba(255,255,255,0.4); }
+  50% { box-shadow: 0 15px 40px rgba(170,138,0,0.6), 0 0 40px rgba(225,37,27,0.3), inset 0 0 25px rgba(255,255,255,0.5); }
+}
+
+/* Optional: tiny pasta particle burst when entering fullscreen */
+#gustoraFullscreenBtn:active {
+  transform: scale(0.95);
+}
+</style>
+<script>
+// Gustora-themed Fullscreen Toggle (works on all modern browsers + mobile)
+document.getElementById('gustoraFullscreenBtn').addEventListener('click', () => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen?.() || 
+    document.documentElement.webkitRequestFullscreen?.() || 
+    document.documentElement.msRequestFullscreen?.();
+  } else {
+    document.exitFullscreen?.() || 
+    document.webkitExitFullscreen?.() || 
+    document.msExitFullscreen?.();
+  }
+});
+</script>
+<header class="text-center py-4 fade-in visible">
+<div class="header-bg max-w-4xl mx-auto">
+<h2 class="text-2xl font-roboto mt-2 text-[var(--secondary)]"><strong><span style="font-size:48px;">Compound Interest &amp; Investment </span></strong></h2>
+
+<h2 class="text-2xl font-roboto mt-2 text-[var(--secondary)]"><strong><span style="font-size:48px;">Simulator</span></strong></h2>
+</div>
+</header>
+<!-- NOTES BUTTON -->
+
+<p><button id="notesBtn">📝</button><!-- NOTES PANEL --></p>
+
+<div id="notesPanel">
+<div class="notes-header"><span>My Notes</span><button id="closeNotes">✕</button></div>
+<textarea id="notesArea" placeholder="Write notes here..."></textarea>
+
+<div class="notes-actions"><button id="downloadNotes">Download</button><button id="clearNotes">Clear</button></div>
+</div>
+
+<p>
+<style type="text/css">#notesBtn,
+#notesPanel {
+  position: fixed !important;
+  transform: none !important;
+  filter: none !important;
+  isolation: isolate;
+}
+
+/* NOTES BUTTON */
+#notesBtn {
+  bottom: 24px;
+  left: 24px;
+  z-index: 2147483647;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 0 25px rgba(250, 204, 21, 0.9);
+}
+
+/* NOTES PANEL */
+#notesPanel {
+  bottom: 96px;
+  left: 24px;
+  width: 320px;
+  max-width: 90vw;
+  background: rgba(15, 23, 42, 0.96);
+  color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+  z-index: 2147483646;
+  display: none;
+  flex-direction: column;
+  backdrop-filter: blur(14px);
+}
+
+/* HEADER */
+.notes-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+/* TEXTAREA */
+#notesArea {
+  background: transparent;
+  border: none;
+  color: white;
+  padding: 14px;
+  height: 150px;
+  resize: none;
+  outline: none;
+}
+
+/* ACTIONS */
+.notes-actions {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+}
+
+.notes-actions button {
+  flex: 1;
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+}
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("notesBtn");
+  const panel = document.getElementById("notesPanel");
+  const close = document.getElementById("closeNotes");
+  const area = document.getElementById("notesArea");
+  const clearBtn = document.getElementById("clearNotes");
+  const downloadBtn = document.getElementById("downloadNotes");
+
+  const STORAGE_KEY = "user_notes_cache";
+
+  /* 🚨 Escape stacking contexts */
+  document.body.appendChild(panel);
+  document.body.appendChild(btn);
+
+  /* ✅ Load saved notes */
+  area.value = localStorage.getItem(STORAGE_KEY) || "";
+
+  /* Toggle panel */
+  btn.onclick = () => {
+    panel.style.display = panel.style.display === "flex" ? "none" : "flex";
+  };
+
+  close.onclick = () => panel.style.display = "none";
+
+  /* ✅ Auto-save on typing */
+  area.addEventListener("input", () => {
+    localStorage.setItem(STORAGE_KEY, area.value);
+  });
+
+  /* Clear notes */
+  clearBtn.onclick = () => {
+    if (confirm("Clear all notes?")) {
+      area.value = "";
+      localStorage.removeItem(STORAGE_KEY);
+    }
+  };
+
+  /* Download notes */
+  downloadBtn.onclick = () => {
+    const blob = new Blob([area.value], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "my-notes.txt";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+});
+</script></p>
+
+<main class="max-w-6xl mx-auto px-4 space-y-6 relative z-10">
+<section class="bg-white p-4 rounded-lg shadow-lg fade-in">
+<h3 class="text-3xl font-poppins mb-6 text-[var(--primary)] hover-scale">Your Mission</h3>
+
+<div class="capstone-card">
+<p class="text-lg mb-4"><strong>You have ₹10,000</strong> to invest!</p>
+
+<p class="text-lg mb-4">Use the simulator below to:</p>
+
+<ul class="list-disc pl-6 space-y-2 text-lg">
+	<li>Allocate money across 5 investment types</li>
+	<li>Set investment period (months or years)</li>
+	<li>Choose compounding frequency (1, 4, or 12)</li>
+	<li>See future value using <strong>compound interest</strong></li>
+</ul>
+</div>
+
+<div class="flex justify-center">
+<div class="image-container-large"><img alt="Investment Growth" class="capstone-image-large fade-in" src="https://images.unsplash.com/photo-1579621970588-a35d0e7ab9b6?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" /></div>
+</div>
+</section>
+
+<section class="bg-white p-4 rounded-lg shadow-lg fade-in">
+<h3 class="text-3xl font-poppins mb-6 text-[var(--primary)] hover-scale">Investment Simulator</h3>
+
+<div class="capstone-card">
+<p class="mb-4"><strong>Initial Amount: ₹10,000</strong></p>
+
+<p class="mb-4">Enter amounts, total &le; ₹10,000. Choose compounding frequency!</p>
+</div>
+
+<div class="overflow-x-auto">
+<table class="investment-table" id="investmentTable">
+	<thead>
+		<tr>
+			<th>Investment Type</th>
+			<th>Amount Invested (₹)</th>
+			<th>Annual Return (%)</th>
+			<th>Rate in decimals</th>
+			<th>Period (Months)</th>
+			<th>Period (Years)</th>
+			<th>n (per year)</th>
+			<th>Compound interest after total years</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr data-type="stocks">
+			<td><strong>Stocks</strong></td>
+			<td><input max="10000" min="0" onchange="calculateAll()" type="number" value="0" /></td>
+			<td class="rate-pct">12</td>
+			<td class="rate-dec">0.12</td>
+			<td><input min="0" onchange="updateYears(this)" type="number" value="12" /></td>
+			<td><input min="0" onchange="updateMonths(this)" step="0.01" type="number" value="1" /></td>
+			<td><select onchange="calculateAll()"><option value="1">1 (Yearly)</option><option value="4">4 (Quarterly)</option><option selected="selected" value="12">12 (Monthly)</option> </select></td>
+			<td class="result">₹0.00</td>
+		</tr>
+		<tr data-type="mutual">
+			<td><strong>Mutual Funds</strong></td>
+			<td><input max="10000" min="0" onchange="calculateAll()" type="number" value="0" /></td>
+			<td class="rate-pct">10</td>
+			<td class="rate-dec">0.10</td>
+			<td><input min="0" onchange="updateYears(this)" type="number" value="12" /></td>
+			<td><input min="0" onchange="updateMonths(this)" step="0.01" type="number" value="1" /></td>
+			<td><select onchange="calculateAll()"><option value="1">1</option><option value="4">4</option><option selected="selected" value="12">12</option> </select></td>
+			<td class="result">₹0.00</td>
+		</tr>
+		<tr data-type="fd">
+			<td><strong>Fixed Deposit</strong></td>
+			<td><input max="10000" min="0" onchange="calculateAll()" type="number" value="0" /></td>
+			<td class="rate-pct">6</td>
+			<td class="rate-dec">0.06</td>
+			<td><input min="0" onchange="updateYears(this)" type="number" value="12" /></td>
+			<td><input min="0" onchange="updateMonths(this)" step="0.01" type="number" value="1" /></td>
+			<td><select onchange="calculateAll()"><option value="1">1</option><option selected="selected" value="4">4</option><option value="12">12</option> </select></td>
+			<td class="result">₹0.00</td>
+		</tr>
+		<tr data-type="gold">
+			<td><strong>Gold</strong></td>
+			<td><input max="10000" min="0" onchange="calculateAll()" type="number" value="0" /></td>
+			<td class="rate-pct">7</td>
+			<td class="rate-dec">0.07</td>
+			<td><input min="0" onchange="updateYears(this)" type="number" value="12" /></td>
+			<td><input min="0" onchange="updateMonths(this)" step="0.01" type="number" value="1" /></td>
+			<td><select onchange="calculateAll()"><option selected="selected" value="1">1</option><option value="4">4</option><option value="12">12</option> </select></td>
+			<td class="result">₹0.00</td>
+		</tr>
+		<tr data-type="savings">
+			<td><strong>Savings</strong></td>
+			<td><input max="10000" min="0" onchange="calculateAll()" type="number" value="0" /></td>
+			<td class="rate-pct">3</td>
+			<td class="rate-dec">0.03</td>
+			<td><input min="0" onchange="updateYears(this)" type="number" value="12" /></td>
+			<td><input min="0" onchange="updateMonths(this)" step="0.01" type="number" value="1" /></td>
+			<td><select onchange="calculateAll()"><option value="1">1</option><option value="4">4</option><option selected="selected" value="12">12</option> </select></td>
+			<td class="result">₹0.00</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+
+<div class="mt-6 flex flex-wrap gap-3 justify-center items-center"><button class="btn" onclick="calculateAll()">Calculate Returns</button><button class="btn btn-reset" onclick="resetAll()">Reset</button><button class="btn btn-toggle" onclick="toggleConfetti()">Confetti: ON</button><button class="btn" onclick="downloadCSV()">Download CSV</button></div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+<div class="summary-card">
+<p class="text-sm">Total Invested</p>
+
+<p class="text-2xl font-bold" id="totalInvested">₹0.00</p>
+</div>
+
+<div class="summary-card">
+<p class="text-sm">Total Return</p>
+
+<p class="text-2xl font-bold text-[var(--profit)]" id="totalReturn">₹0.00</p>
+</div>
+
+<div class="summary-card">
+<p class="text-sm">Net Profit</p>
+
+<p class="total-return" id="netProfit" style="color: var(--loss);">₹0.00</p>
+</div>
+</div>
+
+<div class="chart-container" id="chartWrapper"><canvas id="returnChart" style="display: none;"></canvas>
+
+<p class="text-center text-[var(--secondary)] hidden" id="noDataMsg" style="display: block;">Enter investments to see the chart!</p>
+</div>
+
+<div class="formula-box">Future Value = P &times; (1 + r/n)^(n&times;t) | P = Principal, r = rate, t = years, n = compounding frequency</div>
+</section>
+
+<section class="bg-white p-4 rounded-lg shadow-lg fade-in">
+<h3 class="text-3xl font-poppins mb-6 text-[var(--primary)] hover-scale">Think &amp; Reflect</h3>
+
+<div class="capstone-card">
+<p class="mb-3"><strong>1. Which investment grew the most?</strong></p>
+
+<p class="mb-3"><strong>2. Why do higher returns come with more risk?</strong></p>
+
+<p class="mb-3"><strong>3. How would your money grow in 10 years?</strong></p>
+
+<p class="font-bold text-[var(--profit)]">The magic of compounding: Small investments + time = BIG wealth!</p>
+</div>
+</section>
+</main>
+
+<footer>
+<h4 class="text-xl font-poppins mb-2">Budget Boss</h4>
+
+<p class="text-sm">SkilliZee.io</p>
+</footer>
+<script>
+    let chart = null;
+    let confettiEnabled = true;
+    const toggleBtn = document.querySelector('.btn-toggle');
+
+    const observer = new IntersectionObserver(e => e.forEach(en => en.isIntersecting && en.target.classList.add('visible')), { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        const h = document.documentElement;
+        const progress = (window.scrollY / (h.scrollHeight - h.clientHeight)) * 100;
+        document.getElementById('progress-bar').style.height = `${progress}%`;
+      }, 50);
+    });
+
+    function updateChart(labels, data) {
+      const ctx = document.getElementById('returnChart');
+      const msg = document.getElementById('noDataMsg');
+      if (!labels.length) { if (chart) chart.destroy(); ctx.style.display='none'; msg.style.display='block'; return; }
+      msg.style.display='none'; ctx.style.display='block';
+      if (chart) chart.destroy();
+      chart = new Chart(ctx, {
+        type: 'bar',
+        data: { labels, datasets: [{ label: 'Future Value (₹)', data, backgroundColor: ['#f59e0b','#10b981','#3b82f6','#f97316','#8b5cf6'], borderRadius: 8 }] },
+        options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+      });
+    }
+
+    function updateYears(i) {
+      const m = Math.max(0, +i.value||0); i.value=m;
+      i.parentElement.nextElementSibling.querySelector('input').value=(m/12).toFixed(2);
+      calculateAll();
+    }
+    function updateMonths(i) {
+      const y = Math.max(0, +i.value||0); i.value=y;
+      i.parentElement.previousElementSibling.querySelector('input').value=Math.round(y*12);
+      calculateAll();
+    }
+
+    function compoundInterest(P, r, n, t) {
+      if (P <= 0 || t <= 0) return P;
+      return P * Math.pow(1 + r/n, n*t);
+    }
+
+    function calculateAll() {
+      let totalInvested = 0, totalFuture = 0, labels = [], data = [];
+      const rowData = {};
+
+      document.querySelectorAll('#investmentTable tbody tr').forEach(row => {
+        const type = row.dataset.type;
+        const amountIn = row.cells[1].querySelector('input');
+        const ratePct = +row.cells[2].textContent;
+        const rateDec = ratePct / 100;
+        const monthsIn = row.cells[4].querySelector('input');
+        const yearsIn = row.cells[5].querySelector('input');
+        const nSelect = row.cells[6].querySelector('select');
+        const fvCell = row.cells[7];
+
+        let P = Math.max(0, +amountIn.value||0); amountIn.value=P; totalInvested+=P;
+        const t = Math.min(+yearsIn.value||0,100);
+        const n = +nSelect.value;
+        const FV = compoundInterest(P, rateDec, n, t); totalFuture+=FV;
+
+        row.cells[3].textContent = rateDec.toFixed(2);
+        fvCell.textContent = `₹${FV.toFixed(2)}`;
+
+        rowData[type] = { amount: P, ratePct, rateDec, periodMonths: +monthsIn.value, periodYears: t, n, fv: FV };
+        if (P>0) { labels.push(type.charAt(0).toUpperCase()+type.slice(1)); data.push(FV); }
+      });
+
+      if (totalInvested>10000) { alert("Total invested cannot exceed ₹10,000!"); return; }
+
+      const profit = totalFuture - totalInvested;
+      document.getElementById('totalInvested').textContent = `₹${totalInvested.toFixed(2)}`;
+      document.getElementById('totalReturn').textContent = `₹${totalFuture.toFixed(2)}`;
+      document.getElementById('netProfit').textContent = `₹${profit.toFixed(2)}`;
+      document.getElementById('netProfit').style.color = profit>0 ? 'var(--profit)' : 'var(--loss)';
+
+      if (confettiEnabled && profit>1000) confetti({particleCount:100, spread:70, origin:{y:0.6}});
+      updateChart(labels, data);
+
+      window.rowData = rowData;
+      window.totals = { totalInvested, totalFuture, netProfit: profit };
+    }
+
+    function resetAll() {
+      document.querySelectorAll('#investmentTable input[type="number"]').forEach(i => i.value = i.step==='0.01'?'1':'0');
+      document.querySelectorAll('#investmentTable select').forEach(s => s.value = '12');
+      calculateAll();
+    }
+
+    function toggleConfetti() {
+      confettiEnabled = !confettiEnabled;
+      toggleBtn.textContent = `Confetti: ${confettiEnabled?'ON':'OFF'}`;
+    }
+
+    // === PERSONAL CSV DOWNLOAD ===
+    function downloadCSV() {
+      if (!window.rowData) {
+        alert("Calculate returns first!");
+        return;
+      }
+
+      let name = prompt("Enter your name for the CSV file:", "Student");
+      if (!name) name = "Student";
+      name = name.replace(/[^a-zA-Z0-9]/g, '_');
+
+      let email = prompt("Enter your email for CSV:", "") || "N/A";
+
+      let csv = `Student Name:,${name}\nEmail:,${email}\n\n`;
+      csv += `Investment Type,Amount Invested (₹),Annual Return (%),Rate in decimals,Period (Months),Period (Years),n,Compound interest after total years\n`;
+
+      document.querySelectorAll('#investmentTable tbody tr').forEach(r => {
+        const type = r.cells[0].textContent.trim();
+        const amt = r.cells[1].querySelector('input').value;
+        const ratePct = r.cells[2].textContent;
+        const rateDec = r.cells[3].textContent;
+        const months = r.cells[4].querySelector('input').value;
+        const years = r.cells[5].querySelector('input').value;
+        const n = r.cells[6].querySelector('select').value;
+        const fv = r.cells[7].textContent.replace('₹','').trim();
+        csv += `${type},${amt},${ratePct},${rateDec},${months},${years},${n},${fv}\n`;
+      });
+
+      const totalYears = Array.from(document.querySelectorAll('#investmentTable tbody tr'))
+        .reduce((sum, r) => sum + ((+r.cells[1].querySelector('input').value > 0) ? (+r.cells[5].querySelector('input').value || 0) : 0), 0);
+      csv += `Total,${window.totals.totalInvested},,,${totalYears},,,\n`;
+
+      const blob = new Blob([csv], {type: 'text/csv'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${name}_Investment_Report.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    calculateAll();
+
+    let fired = false;
+    window.addEventListener('scroll', () => {
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50 && !fired && confettiEnabled) {
+        confetti({particleCount:80, spread:70, origin:{y:0.6}}); fired=true;
+      }
+    });
+</script>
+

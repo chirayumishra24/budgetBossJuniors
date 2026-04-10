@@ -1,0 +1,839 @@
+<div>
+<div><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></div>
+</div>
+<title></title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;family=Roboto:wght@400;500&amp;display=swap" rel="stylesheet" /><link href="app-responsive.css" rel="stylesheet" /><script src="https://cdn.tailwindcss.com"></script><script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<style type="text/css">:root {
+    --primary: #E0C36C;
+    --secondary: #3A6351;
+    --accent: #F7E9A0;
+}
+.dark {
+    --primary: #F7E9A0;
+    --secondary: #E0C36C;
+    --accent: #3A6351;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+    color: var(--secondary);
+    background-color: #f0f0f0;
+    overflow-x: hidden;
+    margin: 0;
+}
+.dark body {
+    background-color: #1a1a1a;
+}
+
+/* === SMOOTH GIF BACKGROUND === */
+.bg-gif {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    opacity: 0.45;
+    pointer-events: none;
+    z-index: -1;
+    background: url('https://login.skillizee.io/s/articles/69032135361cbb0cdc00b38c/images/flyyyyy.gif') center/cover no-repeat;
+    animation: subtleZoom 18s ease-in-out infinite alternate;
+}
+.dark .bg-gif {
+    opacity: 0.35;
+    filter: brightness(0.85);
+}
+@keyframes subtleZoom {
+    0% { background-size: 100%; }
+    100% { background-size: 115%; }
+}
+
+/* Fade-in on Scroll */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hover-scale {
+    transition: transform 0.3s ease;
+}
+.hover-scale:hover {
+    transform: scale(1.05);
+}
+
+/* Cards */
+.budget-card, .activity-card {
+    background: var(--accent);
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+.budget-card:hover, .activity-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+.budget-card::before, .activity-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+}
+
+.budget-definition {
+    font-style: italic;
+    color: var(--secondary);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+.budget-characteristic {
+    background: rgba(224, 195, 108, 0.1);
+    padding: 0.75rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary);
+    margin-top: 0.5rem;
+}
+
+/* Tables */
+.budget-table {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-top: 2rem;
+}
+.budget-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.budget-table th, .budget-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+.budget-table th {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: var(--secondary);
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+}
+.budget-table tr:hover {
+    background: rgba(224, 195, 108, 0.05);
+}
+
+/* Progress Bar */
+.progress-container {
+    position: fixed;
+    top: 33.33vh;
+    right: 10px;
+    width: 8px;
+    height: 33.33vh;
+    background: rgba(0,0,0,0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    z-index: 20;
+}
+.progress-bar {
+    width: 100%;
+    height: 0;
+    background: #1B4D3E;
+    transition: height 0.3s ease;
+}
+
+/* Header */
+.header-bg {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Footer */
+footer {
+    background: var(--secondary);
+    color: var(--accent);
+    padding: 2rem;
+}
+footer a:hover {
+    color: var(--primary);
+}
+
+/* Large Images */
+.image-container-large {
+    width: 100%;
+    max-width: 500px;
+    margin: 2rem auto;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    border: 3px solid var(--primary);
+}
+.budget-image-large {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.4s ease;
+}
+.budget-image-large:hover {
+    transform: scale(1.05);
+}
+
+/* YouTube */
+.youtube-video {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    margin: 1.5rem 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.youtube-video iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: 0;
+    border-radius: 12px;
+}
+
+/* Draggable Items */
+.draggable {
+    background: var(--accent);
+    color: var(--secondary);
+    padding: 1rem 1.5rem;
+    margin: 0.5rem 0;
+    border-radius: 12px;
+    border: 2px solid var(--primary);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    text-align: center;
+    cursor: grab;
+    transition: all 0.3s ease;
+    user-select: none;
+    touch-action: manipulation;
+}
+.draggable:hover {
+    background: #f0d88a;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+.draggable:active {
+    cursor: grabbing;
+}
+.draggable.dragging {
+    opacity: 0.6;
+    transform: rotate(5deg) scale(0.95);
+}
+
+/* Drop Zones */
+#savings-bin, #investment-bin {
+    min-height: 140px;
+    background: rgba(224, 195, 108, 0.05);
+    border: 3px dashed var(--primary);
+    border-radius: 16px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+#savings-bin.drag-over, #investment-bin.drag-over {
+    background: rgba(224, 195, 108, 0.25);
+    border-color: var(--secondary);
+    transform: scale(1.02);
+}
+
+/* Buttons */
+.btn {
+    background: var(--primary);
+    color: var(--secondary);
+    padding: 0.75rem 1.75rem;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    min-width: 140px;
+}
+.btn:hover {
+    background: var(--secondary);
+    color: var(--accent);
+    transform: translateY(-2px);
+}
+.btn-reset {
+    background: #6b7280;
+    color: white;
+}
+.btn-reset:hover {
+    background: #4b5563;
+}
+
+/* Feedback */
+.feedback {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 12px;
+    display: none;
+    font-weight: 500;
+}
+.feedback.correct {
+    background: rgba(58, 99, 81, 0.15);
+    border-left: 5px solid var(--secondary);
+    color: var(--secondary);
+}
+.feedback.incorrect {
+    background: rgba(239, 68, 68, 0.15);
+    border-left: 5px solid #e53e3e;
+    color: #7f1d1d;
+}
+
+/* Audio Container */
+.audio-container {
+    position: relative;
+    background: url('https://login.skillizee.io/s/articles/6909826eb2daa47d422b50af/images/Subtitle (4).gif') center center no-repeat;
+    background-size: contain;
+    border-radius: 16px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+    margin: 1rem auto;
+    width: 90%;
+    max-width: 900px;
+    aspect-ratio: 1920 / 1080;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1rem;
+}
+.audio-container audio {
+    width: 100%;
+    border-radius: 12px;
+    border: 2px solid #2D2B7E;
+    background: #F5F5FF;
+    height: 50px;
+    box-shadow: 0 3px 10px rgba(45, 43, 126, 0.3);
+}
+
+/* =====================================
+   GUSTORA FULLSCREEN BUTTON (Exact from 1.1)
+===================================== */
+#gustoraFullscreenBtn {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 99999;
+    width: 68px;
+    height: 68px;
+    background: linear-gradient(135deg, var(--primary), #c9a100);
+    border: 4px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(170,138,0,0.5), 0 0 30px rgba(255,215,0,0.4), inset 0 0 20px rgba(255,255,255,0.4);
+    backdrop-filter: blur(12px);
+    transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    animation: gentlePulse 4s infinite ease-in-out;
+}
+#gustoraFullscreenBtn:hover {
+    transform: scale(1.18) rotate(8deg);
+    box-shadow: 0 20px 50px rgba(170,138,0,0.7), 0 0 50px rgba(255,215,0,0.6), 0 0 60px rgba(225,37,27,0.3);
+    border-color: #e53e3e;
+}
+#gustoraFullscreenBtn svg {
+    width: 38px;
+    height: 38px;
+    stroke: #000;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+@keyframes gentlePulse {
+    0%, 100% { 
+        box-shadow: 0 10px 30px rgba(170,138,0,0.5), 0 0 30px rgba(255,215,0,0.4), inset 0 0 20px rgba(255,255,255,0.4); 
+    }
+    50% { 
+        box-shadow: 0 15px 40px rgba(170,138,0,0.6), 0 0 40px rgba(225,37,27,0.3), inset 0 0 25px rgba(255,255,255,0.5); 
+    }
+}
+#gustoraFullscreenBtn:active {
+    transform: scale(0.95);
+}
+
+/* =====================================
+   GLOBAL APP SAFETY
+===================================== */
+html, body {
+    overflow-x: hidden !important;
+}
+* {
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+/* =====================================
+   MOBILE RESPONSIVENESS
+===================================== */
+@media (max-width: 768px) {
+    .header-bg {
+        width: 95% !important;
+        padding: 1rem !important;
+    }
+    .header-bg h2 span {
+        font-size: 22px !important;
+    }
+    h3 {
+        font-size: 20px !important;
+    }
+    p {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    /* Large Images */
+    .image-container-large {
+        max-width: 100% !important;
+        margin: 1rem auto;
+    }
+
+    /* Quiz Bins - Stack on Mobile */
+    .grid.grid-cols-1.md\\:grid-cols-2 {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1rem;
+    }
+    #savings-bin, #investment-bin {
+        width: 100%;
+    }
+
+    /* Draggable Items */
+    .draggable {
+        font-size: 14px;
+        padding: 12px;
+    }
+    .draggable:hover {
+        transform: none;
+    }
+
+    /* Buttons */
+    .btn {
+        width: 100%;
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    /* Audio */
+    .audio-container {
+        width: 92% !important;
+        aspect-ratio: 16 / 9;
+    }
+    .audio-container audio {
+        height: 40px;
+    }
+
+    /* Hide heavy UI */
+    .progress-container {
+        display: none;
+    }
+    .bg-gif {
+        animation: none !important;
+        opacity: 0.2;
+    }
+
+    /* Disable hover effects */
+    .hover-scale:hover,
+    .budget-card:hover,
+    .activity-card:hover {
+        transform: none !important;
+        box-shadow: 0 4px 6px rgba(0,0,0,.1);
+    }
+
+    section {
+        margin-bottom: 1rem;
+        padding: 1rem !important;
+    }
+}
+
+/* Notes Panel */
+#notesBtn, #notesPanel {
+    position: fixed !important;
+    isolation: isolate;
+}
+#notesBtn {
+    bottom: 24px;
+    left: 24px;
+    z-index: 2147483647;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    background: #fff;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 0 25px rgba(250, 204, 21, 0.9);
+}
+#notesPanel {
+    bottom: 96px;
+    left: 24px;
+    width: 320px;
+    max-width: 90vw;
+    background: rgba(15, 23, 42, 0.96);
+    color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+    z-index: 2147483646;
+    display: none;
+    flex-direction: column;
+    backdrop-filter: blur(14px);
+}
+.notes-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+#notesArea {
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 14px;
+    height: 150px;
+    resize: none;
+    outline: none;
+}
+.notes-actions {
+    display: flex;
+    gap: 10px;
+    padding: 12px;
+}
+.notes-actions button {
+    flex: 1;
+    border: none;
+    border-radius: 8px;
+    padding: 8px;
+    cursor: pointer;
+}
+</style>
+<!-- SMOOTH GIF BACKGROUND -->
+<div class="bg-gif">&nbsp;</div>
+<!-- Progress Bar -->
+
+<div class="progress-container">
+<div class="progress-bar" id="progress-bar">&nbsp;</div>
+</div>
+<!-- Gustora Fullscreen Button -->
+
+<div id="gustoraFullscreenBtn"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6" viewbox="0 0 24 24"> <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path> </svg></div>
+
+<header class="text-center py-4 fade-in visible relative z-10">
+<div class="header-bg max-w-3xl mx-auto">
+<h2 class="text-2xl font-roboto mt-2 text-[var(--secondary)]"><strong><span style="font-size:48px;">Chapter 2.2 &ndash; Difference between Savings and Investments</span></strong></h2>
+</div>
+</header>
+<!-- Notes Button -->
+
+<p><button id="notesBtn">📝</button></p>
+
+<div id="notesPanel">
+<div class="notes-header"><span>My Notes</span><button id="closeNotes">✕</button></div>
+<textarea id="notesArea" placeholder="Write notes here..."></textarea>
+
+<div class="notes-actions"><button id="downloadNotes">Download</button><button id="clearNotes">Clear</button></div>
+</div>
+<!-- Audio -->
+
+<div class="audio-container">
+<audio controls="" controlslist="nodownload" oncontextmenu="return false;"><source src="https://pa2-cmd.github.io/audio-chapters-budget-boss/m2c2.mp3" type="audio/mp3" /> Your browser does not support the audio element.</audio>
+</div>
+
+<main class="max-w-4xl mx-auto px-4 space-y-6 relative z-10"><!-- Section 1: Introduction -->
+<section class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg fade-in">
+<h3 class="text-3xl font-poppins mb-6 text-[var(--primary)] hover-scale text-center">Understanding the Key Differences</h3>
+
+<div class="space-y-6">
+<p class="text-lg mb-6 text-center">While both saving and investing are essential for financial well-being, they serve different purposes. <strong>Saving</strong> is about preserving money safely for short-term needs, while <strong>investing</strong> is about growing your money over time, even if it involves risk.</p>
+<!-- YouTube Video -->
+
+<div class="youtube-video"><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" src="https://www.youtube.com/embed/GKOlLeunz5Y?rel=0" title="Savings vs Investment"></iframe></div>
+
+<p class="text-lg mb-6 text-center">Choosing between them depends on your goals, timeline, and comfort with risk.</p>
+<!-- Image -->
+
+<div class="flex justify-center">
+<div class="image-container-large"><img alt="Savings vs Investment" class="budget-image-large fade-in" src="https://login.skillizee.io/s/articles/69045c600e55fd333f2f14b9/images/INVESTING.png" /></div>
+</div>
+
+<div class="budget-characteristic text-center"><strong>Key Insight:</strong> Savings protect your money. Investments grow your money.</div>
+</div>
+</section>
+<!-- Comparison Table -->
+
+<section class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg fade-in">
+<h3 class="text-3xl font-poppins mb-6 text-[var(--primary)] hover-scale">Savings vs. Investments: Side-by-Side</h3>
+
+<div class="budget-table">
+<table>
+	<thead>
+		<tr>
+			<th>Aspect</th>
+			<th>Savings</th>
+			<th>Investments</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><strong>Risk</strong></td>
+			<td>Very low or no risk; money is usually safe in banks</td>
+			<td>Higher risk; possibility of losing some or all invested money</td>
+		</tr>
+		<tr>
+			<td><strong>Return</strong></td>
+			<td>Lower but stable and guaranteed interest</td>
+			<td>Potentially higher, but fluctuates with market conditions</td>
+		</tr>
+		<tr>
+			<td><strong>Liquidity</strong></td>
+			<td>High liquidity; easy to withdraw anytime</td>
+			<td>Variable liquidity; may take time to sell assets or convert to cash</td>
+		</tr>
+		<tr>
+			<td><strong>Examples</strong></td>
+			<td>Bank savings accounts, fixed deposits, piggy bank</td>
+			<td>Stocks, bonds, mutual funds, real estate, cryptocurrencies</td>
+		</tr>
+		<tr>
+			<td><strong>Time Horizon</strong></td>
+			<td>Short-term goals</td>
+			<td>Medium to long-term wealth accumulation</td>
+		</tr>
+		<tr>
+			<td><strong>Protection Against Inflation</strong></td>
+			<td>Low; interest may not keep up with inflation</td>
+			<td>Potentially high; investments may outpace inflation over time</td>
+		</tr>
+		<tr>
+			<td><strong>Accessibility</strong></td>
+			<td>Easy to start and maintain</td>
+			<td>Requires research, knowledge, and sometimes brokerage accounts</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+
+<div class="budget-characteristic mt-6"><strong>Pro Tip:</strong> Use <em>savings</em> for emergency funds and short-term goals. Use <em>investments</em> to build wealth over 5+ years.</div>
+</section>
+<!-- Real-Life Analogy -->
+
+<section class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg fade-in">
+<h3 class="text-3xl font-poppins mb-6 text-[var(--primary)] hover-scale">Real-Life Analogy: The Garden</h3>
+
+<div class="space-y-6">
+<div class="budget-card">
+<p class="mb-3"><strong>Savings</strong> is like planting seeds in a <em>safe, sheltered pot</em>. They grow slowly but surely, and you can pick them anytime without worry.</p>
+
+<p class="mb-3"><strong>Investments</strong> is like planting seeds in a <em>large open field</em>. With sunlight, rain, and care, they can grow into big trees &mdash; but storms, pests, or drought might damage them.</p>
+
+<p><strong>Smart gardeners do both:</strong> Keep some plants in pots (savings) for quick harvest, and plant others in the field (investments) for future abundance.</p>
+</div>
+
+<div class="flex justify-center">
+<div class="image-container-large"><img alt="Garden Analogy" class="budget-image-large fade-in" src="https://login.skillizee.io/s/articles/69045c600e55fd333f2f14b9/images/Gemini_Generated_Image_h0hhc0h0hhc0h0hh.png" /></div>
+</div>
+</div>
+</section>
+<!-- Interactive Quiz -->
+
+<section class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg fade-in">
+<h3 class="text-3xl font-poppins mb-6 text-[var(--primary)] hover-scale">Quick Quiz: Savings or Investment?</h3>
+
+<div class="activity-card">
+<p class="mb-6 text-center font-medium">Drag each item to the correct category!</p>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div id="savings-bin" ondragover="allowDrop(event)" ondrop="drop(event, 'savings')">
+<p class="font-poppins font-bold text-lg text-[var(--secondary)] text-center mb-3">Savings</p>
+</div>
+
+<div id="investment-bin" ondragover="allowDrop(event)" ondrop="drop(event, 'investment')">
+<p class="font-poppins font-bold text-lg text-[var(--secondary)] text-center mb-3">Investments</p>
+</div>
+</div>
+
+<div class="space-y-3" id="items-container">
+<div class="draggable" data-type="savings" draggable="true" id="item-0" ondragstart="dragStart(event)">Bank Fixed Deposit</div>
+
+<div class="draggable" data-type="investment" draggable="true" id="item-1" ondragstart="dragStart(event)">Mutual Fund</div>
+
+<div class="draggable" data-type="savings" draggable="true" id="item-2" ondragstart="dragStart(event)">Piggy Bank</div>
+
+<div class="draggable" data-type="investment" draggable="true" id="item-3" ondragstart="dragStart(event)">Stock Market</div>
+
+<div class="draggable" data-type="savings" draggable="true" id="item-4" ondragstart="dragStart(event)">Savings Account</div>
+
+<div class="draggable" data-type="investment" draggable="true" id="item-5" ondragstart="dragStart(event)">Real Estate</div>
+</div>
+
+<div class="mt-8 flex gap-4 justify-center"><button class="btn" onclick="checkQuiz()">Check Answers</button><button class="btn btn-reset" onclick="resetQuiz()">Reset</button></div>
+
+<div class="feedback mt-6 text-center" id="quizFeedback">&nbsp;</div>
+</div>
+</section>
+</main>
+
+<footer class="text-center py-8 mt-12 relative z-10">
+<div class="max-w-4xl mx-auto">
+<h4 class="text-xl font-poppins mb-2">Budget Boss</h4>
+
+<p class="text-sm">SkilliZee.io</p>
+</div>
+</footer>
+<script>
+// Fullscreen Button
+document.getElementById('gustoraFullscreenBtn').addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen?.() ||
+        document.documentElement.webkitRequestFullscreen?.() ||
+        document.documentElement.msRequestFullscreen?.();
+    } else {
+        document.exitFullscreen?.() ||
+        document.webkitExitFullscreen?.() ||
+        document.msExitFullscreen?.();
+    }
+});
+
+// Notes Functionality
+document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.getElementById("notesBtn");
+    const panel = document.getElementById("notesPanel");
+    const close = document.getElementById("closeNotes");
+    const area = document.getElementById("notesArea");
+    const clearBtn = document.getElementById("clearNotes");
+    const downloadBtn = document.getElementById("downloadNotes");
+    const STORAGE_KEY = "user_notes_cache";
+
+    document.body.appendChild(panel);
+    document.body.appendChild(btn);
+
+    area.value = localStorage.getItem(STORAGE_KEY) || "";
+
+    btn.onclick = () => panel.style.display = (panel.style.display === "flex") ? "none" : "flex";
+    close.onclick = () => panel.style.display = "none";
+
+    area.addEventListener("input", () => localStorage.setItem(STORAGE_KEY, area.value));
+
+    clearBtn.onclick = () => {
+        if (confirm("Clear all notes?")) {
+            area.value = "";
+            localStorage.removeItem(STORAGE_KEY);
+        }
+    };
+
+    downloadBtn.onclick = () => {
+        const blob = new Blob([area.value], { type: "text/plain" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url; a.download = "my-notes.txt"; a.click();
+        URL.revokeObjectURL(url);
+    };
+});
+
+// Fade-in Observer
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Progress Bar
+const progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.height = `${(scrollTop / docHeight) * 100}%`;
+});
+
+// Confetti on Scroll End
+let confettiFired = false;
+window.addEventListener('scroll', () => {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50 && !confettiFired) {
+        confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+        confettiFired = true;
+    }
+});
+
+// === DRAG & DROP LOGIC ===
+let draggedElement = null;
+
+function allowDrop(ev) {
+    ev.preventDefault();
+    ev.currentTarget.classList.add('drag-over');
+}
+
+function dragStart(ev) {
+    draggedElement = ev.target;
+    ev.dataTransfer.setData("text/plain", ev.target.id);
+    setTimeout(() => ev.target.classList.add('dragging'), 0);
+}
+
+function drop(ev, type) {
+    ev.preventDefault();
+    const id = ev.dataTransfer.getData("text/plain");
+    const element = document.getElementById(id);
+    if (element) {
+        ev.currentTarget.appendChild(element);
+    }
+    ev.currentTarget.classList.remove('drag-over');
+}
+
+function checkQuiz() {
+    let correct = 0;
+    const total = 6;
+    document.querySelectorAll('.draggable').forEach(el => {
+        const parentId = el.parentElement.id;
+        const type = el.getAttribute('data-type');
+        if ((type === 'savings' && parentId === 'savings-bin') || 
+            (type === 'investment' && parentId === 'investment-bin')) {
+            correct++;
+            el.style.background = 'rgba(58, 99, 81, 0.2)';
+            el.style.borderLeft = '5px solid var(--secondary)';
+        } else {
+            el.style.background = '#fee2e2';
+            el.style.borderLeft = '5px solid #e53e3e';
+        }
+    });
+
+    const feedback = document.getElementById('quizFeedback');
+    if (correct === total) {
+        feedback.textContent = `Perfect! You got all ${total} correct!`;
+        feedback.className = "feedback correct";
+        confetti({ particleCount: 120, spread: 70, origin: { y: 0.6 } });
+    } else {
+        feedback.textContent = `You got ${correct}/${total} correct. Try again!`;
+        feedback.className = "feedback incorrect";
+    }
+    feedback.style.display = "block";
+}
+
+function resetQuiz() {
+    const itemsContainer = document.getElementById('items-container');
+    const items = document.querySelectorAll('.draggable');
+    items.forEach(el => {
+        el.style.background = '';
+        el.style.borderLeft = '';
+        if (!itemsContainer.contains(el)) {
+            itemsContainer.appendChild(el);
+        }
+    });
+    const feedback = document.getElementById('quizFeedback');
+    feedback.style.display = 'none';
+    feedback.textContent = '';
+}
+</script>
+

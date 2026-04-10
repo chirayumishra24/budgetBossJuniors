@@ -1,0 +1,1019 @@
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<title></title>
+<!-- Fonts & Libraries -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;family=Roboto:wght@400;500&amp;display=swap" rel="stylesheet" /><link href="app-responsive.css" rel="stylesheet" /><script src="https://cdn.tailwindcss.com"></script><script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script><script src="https://cdn.jsdelivr.net/npm/chart.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<style type="text/css">:root {
+      --primary: #E0C36C;
+      --secondary: #3A6351;
+      --accent: #F7E9A0;
+    }
+    .dark {
+      --primary: #F7E9A0;
+      --secondary: #E0C36C;
+      --accent: #3A6351;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      color: var(--secondary);
+      background-color: #f0f0f0;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+      max-width: 1800px;
+      margin: 0 auto;
+      min-height: 180vh;
+    }
+    .dark body {
+      background-color: #1a1a1a;
+    }
+
+    /* === SMOOTH GIF BACKGROUND === */
+    .bg-gif {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      opacity: 0.45;
+      pointer-events: none;
+      z-index: -1;
+      background: url('https://login.skillizee.io/s/articles/69032135361cbb0cdc00b38c/images/flyyyyy.gif') center/cover no-repeat;
+      background-size: cover;
+      animation: subtleZoom 18s ease-in-out infinite alternate;
+    }
+    .dark .bg-gif {
+      opacity: 0.35;
+      filter: brightness(0.85);
+    }
+    @keyframes subtleZoom {
+      0% { background-size: 100%; }
+      100% { background-size: 115%; }
+    }
+
+    /* === PROGRESS BAR === */
+    .progress-container {
+      position: fixed;
+      top: 33.33vh;
+      right: 10px;
+      width: 8px;
+      height: 33.33vh;
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      z-index: 20;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .progress-bar {
+      width: 100%;
+      height: 0;
+      background: #1B4D3E;
+      border-radius: 4px;
+      transition: height 0.3s ease;
+      position: absolute;
+      top: 0;
+    }
+
+    /* Header */
+    .header-bg {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      color: var(--secondary);
+      text-align: center;
+      width: 95%;
+      max-width: 1800px;
+      margin: 0 auto;
+    }
+    .header-bg h1 {
+      margin: 5px 0;
+      font-size: clamp(1.8em, 2.5vw, 3em);
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+    }
+    .header-bg .badge {
+      background: var(--secondary);
+      color: var(--accent);
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-size: clamp(12px, 1vw, 14px);
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: clamp(20px, 2vw, 24px);
+      width: 100%;
+      overflow-x: hidden;
+      max-width: 1800px;
+      margin: 0 auto;
+    }
+
+    /* Fade-in on Scroll */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* === TITLE CARD === */
+    .title-card {
+      position: relative;
+      background: var(--accent);
+      border-radius: 12px;
+      padding: 1.5rem;
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-bottom: 1.5rem;
+      cursor: default;
+    }
+    .title-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(224, 195, 108, 0.3);
+    }
+    .title-card h2 {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(1.5em, 2.2vw, 2em);
+      color: var(--secondary);
+      font-weight: 600;
+    }
+
+    /* Topic Container */
+    .topic {
+      background: white;
+      margin: clamp(10px, 2vw, 14px) 0;
+      padding: clamp(20px, 2vw, 24px);
+      border-radius: 16px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 95%;
+      width: 95%;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease-out, box-shadow 0.3s;
+      position: relative;
+      z-index: 1;
+    }
+    .dark .topic {
+      background: #2d2d2d;
+      color: #e0e0e0;
+    }
+    .topic:hover {
+      box-shadow: 0px 6px 20px rgba(224, 195, 108, 0.4);
+      transform: scale(1.02);
+      z-index: 10;
+    }
+    .topic.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* === CHAPTER CARD STYLES (Shared) === */
+    .chapter-card {
+      background: var(--accent);
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+      line-height: 1.4;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--secondary);
+      cursor: default;
+      min-width: 160px;
+      height: 70px;
+    }
+    .chapter-card:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 8px 16px rgba(224, 195, 108, 0.3);
+    }
+
+    /* === GRID CLASSES: EXACT ROWS PER MODULE === */
+    .grid-3rows { /* Module 1 */
+      display: grid;
+      grid-template-rows: repeat(3, 1fr);
+      gap: 10px;
+      margin: 12px 0;
+      height: 240px;
+    }
+    .grid-4rows { /* Module 2 */
+      display: grid;
+      grid-template-rows: repeat(4, 1fr);
+      gap: 10px;
+      margin: 12px 0;
+      height: 320px;
+    }
+    .grid-1row { /* Module 3 */
+      display: grid;
+      grid-template-rows: 1fr;
+      gap: 10px;
+      margin: 12px 0;
+      height: 80px;
+    }
+
+    .quiz-badge {
+      display: inline-block;
+      background: var(--secondary);
+      color: var(--accent);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.9em;
+      margin-top: 8px;
+      font-weight: bold;
+    }
+
+    .learn-section {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px dashed #94a3b8;
+      font-size: clamp(15px, 1.3vw, 17px);
+    }
+
+    /* Key Points */
+    .key-point {
+      background: var(--accent);
+      border: 2px solid var(--primary);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      padding: 1rem;
+      border-radius: 8px;
+      margin: 0.5rem 0;
+    }
+    .dark .key-point {
+      background: #3a3a3a;
+      border-color: #F7E9A0;
+    }
+
+    /* Footer */
+    .new-footer {
+      background: var(--secondary);
+      color: var(--accent);
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+      border-radius: 20px 20px 0 0;
+      box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.2);
+      width: 95%;
+      max-width: 1800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .new-footer h4 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.5rem;
+      margin: 0 0 0.5rem 0;
+    }
+    .new-footer p {
+      font-size: 0.9rem;
+      margin: 0;
+      opacity: 0.9;
+    }
+
+    /* Timeline */
+    .timeline { position: relative; padding: 40px 0; width: 100%; }
+    .timeline::before {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 4px;
+      background: var(--primary); left: 50%; transform: translateX(-50%);
+    }
+    .timeline-item { position: relative; margin: 40px 0; width: 50%; cursor: pointer; }
+    .timeline-item.left { left: 0; }
+    .timeline-item.right { left: 50%; }
+    .timeline-content {
+      background: var(--accent); padding: 24px; border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1); position: relative;
+      transition: all 0.4s ease; min-height: 120px; display: flex;
+      flex-direction: column; justify-content: center;
+    }
+    .dark .timeline-content { background: #3a3a3a; }
+    .timeline-content:hover {
+      transform: translateY(-4px); box-shadow: 0 8px 20px rgba(224, 195, 108, 0.2);
+    }
+    .timeline-content::before {
+      content: ''; position: absolute; top: 30px; width: 0; height: 0;
+      border: 12px solid transparent;
+    }
+    .timeline-item.left .timeline-content::before { right: -24px; border-left-color: var(--accent); }
+    .timeline-item.right .timeline-content::before { left: -24px; border-right-color: var(--accent); }
+    .timeline-dot {
+      width: 24px; height: 24px; background: var(--secondary);
+      border-radius: 50%; position: absolute; top: 30px; z-index: 10;
+      box-shadow: 0 0 0 4px white;
+    }
+    .timeline-item.left .timeline-dot { right: -12px; }
+    .timeline-item.right .timeline-dot { left: -12px; }
+    .timeline-title {
+      font-weight: bold; font-size: clamp(1.3em, 1.8vw, 1.6em);
+      color: var(--secondary); margin-bottom: 8px; font-family: 'Poppins', sans-serif;
+    }
+    .timeline-subtitle { font-size: clamp(14px, 1.2vw, 16px); color: #4a5568; font-style: italic; }
+    .timeline-details { max-height: 0; overflow: hidden; transition: max-height 0.6s ease, padding 0.6s ease; opacity: 0; }
+    .timeline-details.open { max-height: 600px; padding: 16px 0 0 0; opacity: 1; }
+
+    @media (max-width: 600px) {
+      .progress-container { right: 5px; width: 6px; height: 30vh; top: 35vh; }
+      .timeline::before { left: 20px; }
+      .timeline-item { width: 100%; left: 0 !important; margin-bottom: 50px; }
+      .timeline-content::before { left: -20px !important; border-right-color: var(--accent) !important; }
+      .timeline-dot { left: 8px !important; }
+      .title-card { height: 80px; padding: 1rem; }
+      .chapter-card { 
+        min-width: 140px; 
+        font-size: 0.85rem; 
+        padding: 0.75rem;
+        height: 60px;
+      }
+      .grid-3rows { height: 210px; }
+      .grid-4rows { height: 280px; }
+      .grid-1row { height: 70px; }
+    }
+
+/* =====================================
+   🔥 HARD FIX: REMOVE PAGE SHIFT (MOST IMPORTANT)
+===================================== */
+body {
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* =====================================
+   🔥 CENTER EVERYTHING PROPERLY
+===================================== */
+.header-bg,
+.topic,
+.new-footer {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* =====================================
+   🔥 TIMELINE MOBILE FIX (CRITICAL)
+===================================== */
+@media (max-width: 768px) {
+
+  .timeline::before {
+    left: 20px !important;
+    transform: none !important;
+  }
+
+  .timeline-item {
+    width: 100% !important;
+    left: 0 !important;
+    margin-bottom: 40px;
+  }
+
+  .timeline-content {
+    margin-left: 50px;
+  }
+
+  .timeline-dot {
+    left: 8px !important;
+  }
+
+  .timeline-content::before {
+    left: -20px !important;
+    border-right-color: var(--accent) !important;
+    border-left-color: transparent !important;
+  }
+}
+
+/* =====================================
+   🔥 GRID HEIGHT FIX (VERY IMPORTANT)
+===================================== */
+@media (max-width: 768px) {
+
+  .grid-3rows,
+  .grid-4rows,
+  .grid-1row {
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px;
+  }
+
+  .chapter-card {
+    height: auto !important;
+    padding: 10px;
+    font-size: 13px;
+  }
+}
+
+/* =====================================
+   🔥 HEADER FIX
+===================================== */
+@media (max-width: 768px) {
+
+  .header-bg {
+    padding: 1rem !important;
+  }
+
+  .header-bg h1 {
+    font-size: 20px !important;
+    line-height: 1.3;
+  }
+}
+
+/* =====================================
+   🔥 VIDEO EMBED FIX
+===================================== */
+iframe {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* =====================================
+   🔥 NOTES PANEL FIX
+===================================== */
+@media (max-width: 768px) {
+
+  #notesPanel {
+    width: 90%;
+    left: 5%;
+  }
+
+  #notesBtn {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+/* =====================================
+   🔥 PERFORMANCE FIX (VERY IMPORTANT)
+===================================== */
+@media (max-width: 768px) {
+
+  .bg-gif {
+    animation: none !important;
+    opacity: 0.2;
+  }
+
+  * {
+    animation-duration: 0.4s !important;
+    transition-duration: 0.2s !important;
+  }
+}
+
+/* =====================================
+   🔥 FINAL OVERFLOW GUARD
+===================================== */
+html, body {
+  overflow-x: hidden !important;
+}
+
+/* =====================================
+   🌍 APP VIEW FIX (CRITICAL)
+===================================== */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+}
+
+/* Remove centering issues */
+body {
+  position: relative;
+  left: 0;
+}
+
+/* =====================================
+   📦 FORCE FULL WIDTH LAYOUT
+===================================== */
+.header-bg,
+.topic,
+.new-footer,
+main {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 auto !important;
+}
+
+/* =====================================
+   📱 TIMELINE MOBILE FIX (IMPORTANT)
+===================================== */
+@media (max-width: 768px) {
+
+  .timeline::before {
+    left: 20px !important;
+    transform: none !important;
+  }
+
+  .timeline-item {
+    width: 100% !important;
+    left: 0 !important;
+  }
+
+  .timeline-content {
+    margin-left: 50px;
+  }
+
+  .timeline-dot {
+    left: 8px !important;
+  }
+
+  .timeline-content::before {
+    left: -20px !important;
+    border-right-color: var(--accent) !important;
+    border-left-color: transparent !important;
+  }
+}
+
+/* =====================================
+   📱 GRID FIX (MODULE CARDS)
+===================================== */
+@media (max-width: 768px) {
+
+  .grid-3rows,
+  .grid-4rows,
+  .grid-1row {
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .chapter-card {
+    height: auto !important;
+    padding: 10px;
+  }
+}
+
+/* =====================================
+   🎥 VIDEO FIX
+===================================== */
+iframe {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* =====================================
+   ⚡ FINAL SAFETY
+===================================== */
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+</style>
+<!-- Animated GIF Background -->
+<div class="bg-gif">&nbsp;</div>
+<!-- PROGRESS BAR -->
+
+<div class="progress-container">
+<div class="progress-bar" id="progress-bar">&nbsp;</div>
+</div>
+<!-- Header --><!-- GUSTORA THEMED FULLSCREEN BUTTON -->
+
+<div id="gustoraFullscreenBtn"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6" viewbox="0 0 24 24"> <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path> </svg></div>
+<style type="text/css">#gustoraFullscreenBtn {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 99999;
+  width: 68px;
+  height: 68px;
+  background: linear-gradient(135deg, var(--brand-gold), #c9a100);
+  border: 4px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 10px 30px rgba(170, 138, 0, 0.5),
+    0 0 30px rgba(255, 215, 0, 0.4),
+    inset 0 0 20px rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  animation: gentlePulse 4s infinite ease-in-out;
+}
+
+#gustoraFullscreenBtn:hover {
+  transform: scale(1.18) rotate(8deg);
+  box-shadow: 
+    0 20px 50px rgba(170, 138, 0, 0.7),
+    0 0 50px var(--glow-gold),
+    0 0 60px var(--glow-red);
+  border-color: var(--brand-red);
+}
+
+#gustoraFullscreenBtn svg {
+  width: 38px;
+  height: 38px;
+  stroke: #000;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+/* Subtle floating + sauce-red glow on hover */
+@keyframes gentlePulse {
+  0%, 100% { box-shadow: 0 10px 30px rgba(170,138,0,0.5), 0 0 30px rgba(255,215,0,0.4), inset 0 0 20px rgba(255,255,255,0.4); }
+  50% { box-shadow: 0 15px 40px rgba(170,138,0,0.6), 0 0 40px rgba(225,37,27,0.3), inset 0 0 25px rgba(255,255,255,0.5); }
+}
+
+/* Optional: tiny pasta particle burst when entering fullscreen */
+#gustoraFullscreenBtn:active {
+  transform: scale(0.95);
+}
+</style>
+<script>
+// Gustora-themed Fullscreen Toggle (works on all modern browsers + mobile)
+document.getElementById('gustoraFullscreenBtn').addEventListener('click', () => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen?.() || 
+    document.documentElement.webkitRequestFullscreen?.() || 
+    document.documentElement.msRequestFullscreen?.();
+  } else {
+    document.exitFullscreen?.() || 
+    document.webkitExitFullscreen?.() || 
+    document.msExitFullscreen?.();
+  }
+});
+</script>
+<header class="header-bg fade-in visible">
+<div class="flex items-center justify-between px-4">
+<h1 style="translate: none; rotate: none; scale: none; opacity: 1; transform: translate(0px, 0px);"><strong>Course Overview &ndash; Your Journey to Becoming a Budget Boss!</strong></h1>
+</div>
+</header>
+<!-- NOTES BUTTON -->
+
+<p><button id="notesBtn">📝</button><!-- NOTES PANEL --></p>
+
+<div id="notesPanel">
+<div class="notes-header"><span>My Notes</span><button id="closeNotes">✕</button></div>
+<textarea id="notesArea" placeholder="Write notes here..."></textarea>
+
+<div class="notes-actions"><button id="downloadNotes">Download</button><button id="clearNotes">Clear</button></div>
+</div>
+
+<p>
+<style type="text/css">#notesBtn,
+#notesPanel {
+  position: fixed !important;
+  transform: none !important;
+  filter: none !important;
+  isolation: isolate;
+}
+
+/* NOTES BUTTON */
+#notesBtn {
+  bottom: 24px;
+  left: 24px;
+  z-index: 2147483647;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 0 25px rgba(250, 204, 21, 0.9);
+}
+
+/* NOTES PANEL */
+#notesPanel {
+  bottom: 96px;
+  left: 24px;
+  width: 320px;
+  max-width: 90vw;
+  background: rgba(15, 23, 42, 0.96);
+  color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+  z-index: 2147483646;
+  display: none;
+  flex-direction: column;
+  backdrop-filter: blur(14px);
+}
+
+/* HEADER */
+.notes-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+/* TEXTAREA */
+#notesArea {
+  background: transparent;
+  border: none;
+  color: white;
+  padding: 14px;
+  height: 150px;
+  resize: none;
+  outline: none;
+}
+
+/* ACTIONS */
+.notes-actions {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+}
+
+.notes-actions button {
+  flex: 1;
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+}
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("notesBtn");
+  const panel = document.getElementById("notesPanel");
+  const close = document.getElementById("closeNotes");
+  const area = document.getElementById("notesArea");
+  const clearBtn = document.getElementById("clearNotes");
+  const downloadBtn = document.getElementById("downloadNotes");
+
+  const STORAGE_KEY = "user_notes_cache";
+
+  /* 🚨 Escape stacking contexts */
+  document.body.appendChild(panel);
+  document.body.appendChild(btn);
+
+  /* ✅ Load saved notes */
+  area.value = localStorage.getItem(STORAGE_KEY) || "";
+
+  /* Toggle panel */
+  btn.onclick = () => {
+    panel.style.display = panel.style.display === "flex" ? "none" : "flex";
+  };
+
+  close.onclick = () => panel.style.display = "none";
+
+  /* ✅ Auto-save on typing */
+  area.addEventListener("input", () => {
+    localStorage.setItem(STORAGE_KEY, area.value);
+  });
+
+  /* Clear notes */
+  clearBtn.onclick = () => {
+    if (confirm("Clear all notes?")) {
+      area.value = "";
+      localStorage.removeItem(STORAGE_KEY);
+    }
+  };
+
+  /* Download notes */
+  downloadBtn.onclick = () => {
+    const blob = new Blob([area.value], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "my-notes.txt";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+});
+</script><!-- Synthesia Intro Video – Perfectly styled for Budget Boss theme --></p>
+
+<div style="width: 95%; max-width: 1800px; margin: 2.5rem auto 2rem; text-align: center;">
+<div style="position: relative; overflow: hidden; aspect-ratio: 1920/1080; 
+                border-radius: 20px; box-shadow: 0 14px 36px rgba(224,195,108,0.3);
+                border: 5px solid var(--primary); background: white;
+                transition: all 0.4s ease;"><iframe allow="encrypted-media; fullscreen; microphone;" allowfullscreen="" loading="lazy" src="https://share.synthesia.io/embeds/videos/27bcac50-cc7d-4be9-8932-9a9e6d3f4367" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; 
+                       border: none; padding: 0; margin: 0; overflow: hidden; border-radius: 16px;" title="Synthesia video player - Budget Boss Overview Video"></iframe></div>
+<!-- Elegant Caption -->
+
+<p style="margin-top: 1.2rem; font-size: clamp(18px, 1.8vw, 22px); 
+              color: var(--secondary); font-weight: 600; font-family: 'Poppins', sans-serif;">Watch Your Budget Boss Journey Begin!</p>
+</div>
+<style type="text/css">/* Dark mode support for video */
+.dark div[style*="border: 5px solid var(--primary)"] {
+    border-color: #F7E9A0 !important;
+    box-shadow: 0 14px 36px rgba(247,233,160,0.25) !important;
+    background: #2d2d2d !important;
+}
+.dark p[style*="color: var(--secondary)"] {
+    color: #E0C36C !important;
+}
+
+/* Mobile optimization */
+@media (max-width: 768px) {
+    div[style*="width: 95%; max-width: 1800px"] {
+        margin: 1.5rem 1rem;
+    }
+    div[style*="border-radius: 20px"] {
+        border-radius: 16px !important;
+    }
+    iframe {
+        border-radius: 12px !important;
+    }
+}
+</style>
+<main><!-- Timeline Section -->
+<div class="topic fade-in visible" id="timeline-topic" style="translate: none; rotate: none; scale: none; opacity: 1; transform: translate(0px, 0px);">
+<div class="title-card">
+<h2>Your Learning Journey</h2>
+</div>
+
+<div class="topic-content">
+<div class="timeline"><!-- Module 1: 3 ROWS -->
+<div class="timeline-item left" onclick="toggleTimeline(this)">
+<div class="timeline-dot">&nbsp;</div>
+
+<div class="timeline-content">
+<div class="timeline-title">Module 1 &ndash; Concept, Value and Types of Money</div>
+
+<div class="timeline-subtitle">The foundation of financial understanding</div>
+
+<div class="timeline-details">
+<div class="grid-3rows">
+<div class="chapter-card">Basic Concepts about Money</div>
+
+<div class="chapter-card">Key Types of Money and Exchange</div>
+
+<div class="chapter-card">Cryptocurrency</div>
+</div>
+
+<div class="quiz-badge">Quiz &ndash; Module 1</div>
+
+<div class="learn-section"><strong>You&rsquo;ll Learn:</strong> Understand how money evolved from barter to digital forms, what gives it value, and explore types of money &mdash; from coins to crypto.</div>
+</div>
+</div>
+</div>
+<!-- Module 2: 4 ROWS -->
+
+<div class="timeline-item right" onclick="toggleTimeline(this)">
+<div class="timeline-dot">&nbsp;</div>
+
+<div class="timeline-content">
+<div class="timeline-title">Module 2 &ndash; Basics of Budgeting, Saving and Investment</div>
+
+<div class="timeline-subtitle">Build smart money habits</div>
+
+<div class="timeline-details">
+<div class="grid-4rows">
+<div class="chapter-card">Budgeting, Savings and Investment</div>
+
+<div class="chapter-card">Difference Between Savings and Investments</div>
+
+<div class="chapter-card">Situation Statement (Birthday Party Challenge)</div>
+
+<div class="chapter-card">Profit &amp; Loss</div>
+</div>
+
+<div class="quiz-badge">Quiz &ndash; Module 2</div>
+
+<div class="learn-section"><strong>You&rsquo;ll Learn:</strong> Learn to create budgets, save for goals, invest wisely, and calculate profit &amp; loss through fun, practical examples.</div>
+</div>
+</div>
+</div>
+<!-- Module 3: 1 ROW -->
+
+<div class="timeline-item left" onclick="toggleTimeline(this)">
+<div class="timeline-dot">&nbsp;</div>
+
+<div class="timeline-content">
+<div class="timeline-title">Module 3 &ndash; Capstone Project</div>
+
+<div class="timeline-subtitle">Apply everything in a real simulator</div>
+
+<div class="timeline-details">
+<div class="grid-1row">
+<div class="chapter-card">Project: Compound Interest &amp; Investment Simulator</div>
+</div>
+
+<div class="learn-section"><strong>You&rsquo;ll Learn:</strong> Apply everything you learned to simulate savings and investments, and see how compound interest helps money grow.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Key Outcomes -->
+
+<div class="topic fade-in" id="outcomes-topic" style="translate: none; rotate: none; scale: none; opacity: 1; transform: translate(0px, 0px);">
+<div class="title-card">
+<h2>You&rsquo;ll Learn To:</h2>
+</div>
+
+<div class="topic-content">
+<div class="space-y-4">
+<div class="key-point">Understand how money works and changes value</div>
+
+<div class="key-point">Plan and manage a personal budget</div>
+
+<div class="key-point">Build saving and investment habits</div>
+
+<div class="key-point">Apply real-world financial skills through interactive projects</div>
+</div>
+</div>
+</div>
+<!-- Why This Matters -->
+
+<div class="topic fade-in" id="why-topic" style="translate: none; rotate: none; scale: none; opacity: 1; transform: translate(0px, 0px);">
+<div class="title-card">
+<h2>Why This Matters:</h2>
+</div>
+
+<div class="topic-content">
+<p class="text-lg">This course helps students become financially confident and responsible by teaching real-world money management skills.</p>
+</div>
+</div>
+
+<div class="topic" style="translate: none; rotate: none; scale: none; opacity: 1; transform: translate(0px, 0px);">
+<div class="title-card">
+<h2>Certificate Prerequisite</h2>
+</div>
+
+<div class="topic-content">
+<p class="text-lg">To get the certificate of this course you have to complete the following!</p>
+
+<p>&nbsp;</p>
+
+<ul>
+	<li class="key-point">Complete the Quizzes</li>
+	<li class="key-point">Complete the Capstone Project</li>
+</ul>
+</div>
+</div>
+</main>
+<!-- Footer -->
+
+<footer class="new-footer">
+<h4>Budget Boss</h4>
+
+<p>SkilliZee.io</p>
+</footer>
+<script>
+    // PROGRESS BAR
+    const progressBar = document.getElementById("progress-bar");
+    window.addEventListener("scroll", () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      progressBar.style.height = `${scrollPercent}%`;
+    });
+
+    // Confetti at bottom (once)
+    let confettiTriggered = false;
+    window.addEventListener("scroll", () => {
+      if (!confettiTriggered && (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+        confettiTriggered = true;
+        confetti({
+          particleCount: 120,
+          spread: 80,
+          origin: { y: 0.6 }
+        });
+      }
+    });
+
+    // GSAP Entry
+    window.onload = () => {
+      gsap.fromTo("h1", { y: -50, opacity: 0 }, { y: 0, opacity: 1, duration: 1, delay: 0.5 });
+      gsap.fromTo(".topic", { y: 50, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.2, delay: 1 });
+    };
+
+    // Fade-in on Scroll
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Timeline Toggle
+    function toggleTimeline(item) {
+      const details = item.querySelector('.timeline-details');
+      details.classList.toggle('open');
+    }
+  </script>
+

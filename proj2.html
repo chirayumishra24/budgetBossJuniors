@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Family Budget Planner</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;family=Roboto:wght@400;500&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="app-responsive.css" rel="stylesheet">
+</head>
+<body>
+  <div class="bg-gif" aria-hidden="true"></div>
+
+  <div class="progress-container" aria-hidden="true">
+    <div class="progress-bar" id="progress-bar"></div>
+  </div>
+
+  <button id="gustoraFullscreenBtn" type="button" aria-label="Toggle fullscreen">
+    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6" viewBox="0 0 24 24">
+      <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+    </svg>
+  </button>
+
+  <header class="text-center py-4 fade-in visible">
+    <div class="header-bg max-w-4xl mx-auto">
+      <h1 class="text-4xl font-poppins font-bold text-[var(--secondary)] hover-scale">
+        Capstone Project: Family Budget Planner
+      </h1>
+      <h2 class="text-2xl font-roboto mt-2 text-[var(--secondary)]">
+        Plan Your Family's Monthly Finances &amp; Learn Smart Money Management
+      </h2>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 space-y-12 relative z-10">
+    <section class="bg-white p-8 rounded-lg shadow-lg fade-in">
+      <h3 class="text-3xl font-poppins mb-6 text-[var(--primary)] hover-scale">Your Family Budget Challenge</h3>
+
+      <div class="capstone-card">
+        <p class="text-lg mb-4"><strong>Enter your family's monthly income and plan wisely.</strong></p>
+        <p class="text-lg mb-4">Allocate money across categories, track actual spending, and aim to become a Budget Boss.</p>
+
+        <ul class="list-disc pl-6 space-y-2 text-lg">
+          <li>Change income &rarr; 50/30/20 suggested amounts auto-update</li>
+          <li>Track spending and see live charts</li>
+          <li>Get a "Budget Boss" celebration when you save at least 20%</li>
+          <li>Download your budget as Excel</li>
+        </ul>
+
+        <p class="font-bold text-[var(--profit)] mt-4">Goal: Save at least 20% while living comfortably.</p>
+      </div>
+    </section>
+
+    <section class="bg-white p-8 rounded-lg shadow-lg fade-in">
+      <h3 class="text-3xl font-poppins mb-6 text-[var(--primary)] hover-scale">Family Budget Simulator</h3>
+
+      <div class="capstone-card">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div>
+            <label class="block font-medium mb-2" for="totalIncome">Total Monthly Income (&#8377;)</label>
+            <input class="w-full px-4 py-2 border border-[var(--primary)] rounded-lg text-center text-lg" id="totalIncome" min="0" type="number" value="80000">
+          </div>
+
+          <div class="text-center mt-8">
+            <p class="text-sm opacity-70">Suggested 50/30/20 Rule:</p>
+            <p>Needs: 50% | Wants: 30% | Savings: 20%</p>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="investment-table" id="budgetTable">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Suggested %</th>
+                <th>Allocated Amount (&#8377;)</th>
+                <th>Actual Spent (&#8377;)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-type="needs">
+                <td><strong>Needs (Rent, Groceries, Utilities, Transport)</strong></td>
+                <td>50%</td>
+                <td><input class="allocated" min="0" type="number" value="40000"></td>
+                <td><input class="spent" min="0" type="number" value="38000"></td>
+              </tr>
+              <tr data-type="wants">
+                <td><strong>Wants (Dining, Entertainment, Shopping)</strong></td>
+                <td>30%</td>
+                <td><input class="allocated" min="0" type="number" value="24000"></td>
+                <td><input class="spent" min="0" type="number" value="22000"></td>
+              </tr>
+              <tr data-type="savings">
+                <td><strong>Savings &amp; Investments</strong></td>
+                <td>20%</td>
+                <td><input class="allocated" min="0" type="number" value="16000"></td>
+                <td><input class="spent" min="0" type="number" value="16000"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-6 flex flex-wrap gap-3 justify-center">
+          <button class="btn" type="button" onclick="calculateBudget()">Update Budget</button>
+          <button class="btn btn-reset" type="button" onclick="resetBudget()">Reset</button>
+          <button class="btn" type="button" onclick="downloadExcel()">Download Excel</button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-8">
+          <div class="summary-card">
+            <p class="text-sm">Total Allocated</p>
+            <p class="text-2xl font-bold" id="totalAllocated">&#8377;80,000</p>
+          </div>
+
+          <div class="summary-card">
+            <p class="text-sm">Total Spent</p>
+            <p class="text-2xl font-bold" id="totalSpent">&#8377;76,000</p>
+          </div>
+
+          <div class="summary-card">
+            <p class="text-sm">Remaining</p>
+            <p class="text-2xl font-bold text-[var(--profit)]" id="remaining">&#8377;4,000</p>
+          </div>
+
+          <div class="summary-card">
+            <p class="text-sm">Savings Rate</p>
+            <p class="text-2xl font-bold" id="savingsRate">20%</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+          <div class="chart-container"><canvas id="pieChart"></canvas></div>
+          <div class="chart-container"><canvas id="barChart"></canvas></div>
+        </div>
+
+        <div class="capstone-card text-center">
+          <p class="text-lg font-medium text-[var(--primary)]">Financial Tip</p>
+          <p class="mt-2 text-lg italic" id="tipText">&nbsp;</p>
+        </div>
+
+        <div class="formula-box">
+          Budget Health = Income &ge; Total Allocated &ge; Total Spent<br>
+          Ideal: Savings &ge; 20% of Income
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white p-8 rounded-lg shadow-lg fade-in">
+      <h3 class="text-3xl font-poppins mb-6 text-[var(--primary)] hover-scale">Think &amp; Reflect</h3>
+      <div class="capstone-card">
+        <p class="mb-3"><strong>1. Did you become a Budget Boss? What made the difference?</strong></p>
+        <p class="mb-3"><strong>2. Which category was hardest to control?</strong></p>
+        <p class="mb-3"><strong>3. How would an unexpected &#8377;10,000 expense affect your plan?</strong></p>
+        <p class="font-bold text-[var(--profit)]">Mastering budgeting today builds wealth tomorrow.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-[var(--secondary)] text-[var(--accent)] py-8 text-center">
+    <h4 class="text-xl font-poppins mb-2">Budget Boss</h4>
+    <p class="text-sm">SkilliZee.io</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script>
+    let pieChart = null;
+    let barChart = null;
+    let confettiEnabled = true;
+    let budgetBossAchieved = false;
+    const currencySymbol = "\u20B9";
+
+    const tips = [
+      "Start saving early. Compounding is your best friend.",
+      "Track every expense for a week. You will be surprised.",
+      "Build an emergency fund covering 3 to 6 months of expenses.",
+      "Use the 50/30/20 rule: 50% needs, 30% wants, 20% savings.",
+      "Automate your savings and pay yourself first.",
+      "Review your budget every month and adjust as needed."
+    ];
+
+    document.getElementById("gustoraFullscreenBtn").addEventListener("click", () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen?.() ||
+        document.documentElement.webkitRequestFullscreen?.() ||
+        document.documentElement.msRequestFullscreen?.();
+      } else {
+        document.exitFullscreen?.() ||
+        document.webkitExitFullscreen?.() ||
+        document.msExitFullscreen?.();
+      }
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll(".fade-in").forEach((element) => observer.observe(element));
+
+    function formatCurrency(amount) {
+      return `${currencySymbol}${Number(amount).toLocaleString("en-IN")}`;
+    }
+
+    function parseDisplayedCurrency(id) {
+      return document.getElementById(id).textContent.replace(/[^\d.-]/g, "").trim();
+    }
+
+    function updateProgressBar() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const fullHeight = documentHeight - windowHeight;
+
+      if (fullHeight <= 0) {
+        document.getElementById("progress-bar").style.height = "0%";
+        return;
+      }
+
+      const scrolled = (scrollTop / fullHeight) * 100;
+      document.getElementById("progress-bar").style.height = `${Math.min(100, Math.max(0, scrolled))}%`;
+    }
+
+    window.addEventListener("scroll", updateProgressBar);
+    window.addEventListener("resize", updateProgressBar);
+    updateProgressBar();
+
+    document.getElementById("totalIncome").addEventListener("input", function updateSuggestedAllocation() {
+      const income = parseFloat(this.value) || 0;
+      const allocatedInputs = document.querySelectorAll(".allocated");
+
+      if (income > 0) {
+        allocatedInputs[0].value = Math.round(income * 0.5);
+        allocatedInputs[1].value = Math.round(income * 0.3);
+        allocatedInputs[2].value = Math.round(income * 0.2);
+      }
+    });
+
+    function showRandomTip() {
+      const tip = tips[Math.floor(Math.random() * tips.length)];
+      document.getElementById("tipText").textContent = tip;
+    }
+
+    function showBudgetBossPopup(savingsRate) {
+      const existingModal = document.getElementById("budgetBossModal");
+      if (existingModal) {
+        existingModal.remove();
+      }
+
+      const modal = document.createElement("div");
+      modal.id = "budgetBossModal";
+      modal.className = "budget-boss-modal";
+      modal.innerHTML = `
+        <div class="budget-boss-modal__backdrop" data-close="true"></div>
+        <div class="budget-boss-modal__card" role="dialog" aria-modal="true" aria-labelledby="budgetBossTitle">
+          <h2 class="budget-boss-modal__title" id="budgetBossTitle">Congratulations!</h2>
+          <p class="budget-boss-modal__subtitle">You are now a <strong>BUDGET BOSS</strong>.</p>
+          <p class="budget-boss-modal__message">You saved <strong>${savingsRate}%</strong> and stayed within your income.</p>
+          <button class="btn budget-boss-modal__close" type="button" data-close="true">Close</button>
+        </div>
+      `;
+
+      modal.addEventListener("click", (event) => {
+        if (event.target?.dataset?.close) {
+          modal.remove();
+        }
+      });
+
+      document.body.appendChild(modal);
+    }
+
+    function calculateBudget() {
+      const income = parseFloat(document.getElementById("totalIncome").value) || 0;
+      let totalAllocated = 0;
+      let totalSpent = 0;
+      const categories = [];
+
+      document.querySelectorAll("#budgetTable tbody tr").forEach((row) => {
+        const allocated = Math.max(0, parseFloat(row.querySelector(".allocated").value) || 0);
+        const spent = Math.max(0, parseFloat(row.querySelector(".spent").value) || 0);
+        const name = row.cells[0].textContent.trim();
+
+        row.querySelector(".allocated").value = allocated;
+        row.querySelector(".spent").value = spent;
+
+        totalAllocated += allocated;
+        totalSpent += spent;
+        categories.push({ name, allocated, spent });
+      });
+
+      const remaining = totalAllocated - totalSpent;
+      const savingsRate = income > 0 ? (((income - totalSpent) / income) * 100).toFixed(1) : "0.0";
+
+      document.getElementById("totalAllocated").textContent = formatCurrency(totalAllocated);
+      document.getElementById("totalSpent").textContent = formatCurrency(totalSpent);
+      document.getElementById("remaining").textContent = formatCurrency(remaining);
+      document.getElementById("remaining").style.color = remaining >= 0 ? "var(--profit)" : "var(--loss)";
+      document.getElementById("savingsRate").textContent = `${savingsRate}%`;
+      document.getElementById("savingsRate").style.color = parseFloat(savingsRate) >= 20 ? "var(--profit)" : "var(--loss)";
+
+      if (totalAllocated > income && income > 0) {
+        alert("Warning: allocated amount is greater than total income.");
+      }
+
+      const isBoss = parseFloat(savingsRate) >= 20 && remaining >= 0 && totalAllocated <= income;
+
+      if (isBoss && !budgetBossAchieved) {
+        confetti({ particleCount: 200, spread: 90, origin: { y: 0.6 } });
+        showBudgetBossPopup(savingsRate);
+        budgetBossAchieved = true;
+      } else if (!isBoss) {
+        budgetBossAchieved = false;
+      }
+
+      if (remaining > 5000 && confettiEnabled) {
+        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+      }
+
+      if (pieChart) {
+        pieChart.destroy();
+      }
+
+      pieChart = new Chart(document.getElementById("pieChart"), {
+        type: "pie",
+        data: {
+          labels: categories.map((category) => category.name),
+          datasets: [{
+            data: categories.map((category) => category.spent),
+            backgroundColor: ["#3b82f6", "#f59e0b", "#22c55e"]
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      });
+
+      if (barChart) {
+        barChart.destroy();
+      }
+
+      barChart = new Chart(document.getElementById("barChart"), {
+        type: "bar",
+        data: {
+          labels: ["Needs", "Wants", "Savings"],
+          datasets: [
+            {
+              label: "Allocated",
+              data: categories.map((category) => category.allocated),
+              backgroundColor: "#E0C36C",
+              borderRadius: 6,
+              barThickness: 35
+            },
+            {
+              label: "Spent",
+              data: categories.map((category) => category.spent),
+              backgroundColor: ["#3b82f6", "#f59e0b", "#22c55e"],
+              borderRadius: 6,
+              barThickness: 35
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: "top",
+              labels: {
+                generateLabels() {
+                  const names = [
+                    "Needs (Rent, Groceries, Utilities, Transport)",
+                    "Wants (Dining, Entertainment, Shopping)",
+                    "Savings and Investments"
+                  ];
+
+                  return names.map((text, index) => ({
+                    text,
+                    fillStyle: ["#3b82f6", "#f59e0b", "#22c55e"][index],
+                    strokeStyle: ["#3b82f6", "#f59e0b", "#22c55e"][index]
+                  }));
+                }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label(context) {
+                  const categoryNames = ["Needs", "Wants", "Savings and Investments"];
+                  return `${context.dataset.label}: ${formatCurrency(context.parsed.y)} (${categoryNames[context.dataIndex]})`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              ticks: {
+                callback: () => ""
+              },
+              grid: {
+                display: false
+              }
+            },
+            y: {
+              beginAtZero: true,
+              ticks: {
+                color: "#3A6351"
+              },
+              title: {
+                display: true,
+                text: `Amount (${currencySymbol})`,
+                color: "#3A6351",
+                font: {
+                  size: 14,
+                  weight: "600"
+                }
+              }
+            }
+          }
+        }
+      });
+
+      showRandomTip();
+    }
+
+    function resetBudget() {
+      document.getElementById("totalIncome").value = 80000;
+      document.querySelectorAll(".allocated")[0].value = 40000;
+      document.querySelectorAll(".allocated")[1].value = 24000;
+      document.querySelectorAll(".allocated")[2].value = 16000;
+      document.querySelectorAll(".spent")[0].value = 38000;
+      document.querySelectorAll(".spent")[1].value = 22000;
+      document.querySelectorAll(".spent")[2].value = 16000;
+      budgetBossAchieved = false;
+      calculateBudget();
+    }
+
+    function downloadExcel() {
+      const income = document.getElementById("totalIncome").value;
+      const workbook = XLSX.utils.book_new();
+      const data = [
+        ["Family Budget Planner", ""],
+        ["Monthly Income", income],
+        [],
+        ["Category", "Suggested %", `Allocated (${currencySymbol})`, `Actual Spent (${currencySymbol})`]
+      ];
+
+      document.querySelectorAll("#budgetTable tbody tr").forEach((row) => {
+        const cells = row.cells;
+        data.push([
+          cells[0].textContent.trim(),
+          cells[1].textContent,
+          row.querySelector(".allocated").value,
+          row.querySelector(".spent").value
+        ]);
+      });
+
+      data.push([], ["Total Allocated", parseDisplayedCurrency("totalAllocated")]);
+      data.push(["Total Spent", parseDisplayedCurrency("totalSpent")]);
+      data.push(["Remaining", parseDisplayedCurrency("remaining")]);
+      data.push(["Savings Rate", document.getElementById("savingsRate").textContent]);
+
+      const worksheet = XLSX.utils.aoa_to_sheet(data);
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Budget");
+      XLSX.writeFile(workbook, "Family_Budget_Planner.xlsx");
+    }
+
+    calculateBudget();
+  </script>
+</body>
+</html>

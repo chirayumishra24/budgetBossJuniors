@@ -1,0 +1,988 @@
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<title></title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;family=Roboto:wght@400;500&amp;display=swap" rel="stylesheet" /><link href="app-responsive.css" rel="stylesheet" /><script src="https://cdn.tailwindcss.com"></script><script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script><script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style type="text/css">:root {
+            --primary: #E0C36C;
+            --secondary: #3A6351;
+            --accent: #F7E9A0;
+        }
+        .dark {
+            --primary: #F7E9A0;
+            --secondary: #E0C36C;
+            --accent: #3A6351;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--secondary);
+            background-color: #f0f0f0;
+            overflow-x: hidden;
+        }
+        .dark body {
+            background-color: #1a1a1a;
+        }
+
+        /* === SMOOTH GIF BACKGROUND === */
+        .bg-gif {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            opacity: 0.45;
+            pointer-events: none;
+            z-index: -1;
+            background: url('https://login.skillizee.io/s/articles/69032135361cbb0cdc00b38c/images/flyyyyy.gif') center/cover no-repeat;
+            background-size: cover;
+            animation: subtleZoom 18s ease-in-out infinite alternate;
+        }
+        .dark .bg-gif {
+            opacity: 0.35;
+            filter: brightness(0.85);
+        }
+        @keyframes subtleZoom {
+            0% { background-size: 100%; }
+            100% { background-size: 115%; }
+        }
+
+        /* Fade-in on Scroll */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hover Effects */
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+        .hover-card {
+            position: relative;
+            background: var(--accent);
+            border-radius: 8px;
+            padding: 1rem;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-card:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .hover-card-content {
+            opacity: 0;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--primary);
+            color: var(--secondary);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 10;
+        }
+        .hover-card:hover .hover-card-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Evolution Timeline */
+        .evolution-timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        .evolution-timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--secondary);
+            z-index: 0;
+        }
+        .evolution-step {
+            background: var(--accent);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Key Points */
+        .key-point {
+            background: var(--accent);
+            border: 2px solid var(--primary);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 33.33vh;
+            right: 10px;
+            width: 8px;
+            height: 33.33vh;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            z-index: 20;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 0;
+            background: #1B4D3E;
+            transition: height 0.3s ease;
+        }
+
+        /* Header & Footer */
+        .header-bg {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        footer {
+            background: var(--secondary);
+            color: var(--accent);
+            padding: 2rem;
+        }
+        footer a:hover {
+            color: var(--primary);
+        }
+
+        /* YouTube Responsive */
+        .youtube-video {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            margin: 1rem 0;
+        }
+        .youtube-video iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+</style>
+<!-- SMOOTH GIF BACKGROUND -->
+<div class="bg-gif">&nbsp;</div>
+<!-- Progress Bar -->
+
+<div class="progress-container">
+<div class="progress-bar" id="progress-bar">&nbsp;</div>
+</div>
+<!-- Header --><!-- GUSTORA THEMED FULLSCREEN BUTTON -->
+
+<div id="gustoraFullscreenBtn"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6" viewbox="0 0 24 24"> <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path> </svg></div>
+<style type="text/css">#gustoraFullscreenBtn {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 99999;
+  width: 68px;
+  height: 68px;
+  background: linear-gradient(135deg, var(--brand-gold), #c9a100);
+  border: 4px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 10px 30px rgba(170, 138, 0, 0.5),
+    0 0 30px rgba(255, 215, 0, 0.4),
+    inset 0 0 20px rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  animation: gentlePulse 4s infinite ease-in-out;
+}
+
+#gustoraFullscreenBtn:hover {
+  transform: scale(1.18) rotate(8deg);
+  box-shadow: 
+    0 20px 50px rgba(170, 138, 0, 0.7),
+    0 0 50px var(--glow-gold),
+    0 0 60px var(--glow-red);
+  border-color: var(--brand-red);
+}
+
+#gustoraFullscreenBtn svg {
+  width: 38px;
+  height: 38px;
+  stroke: #000;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+/* Subtle floating + sauce-red glow on hover */
+@keyframes gentlePulse {
+  0%, 100% { box-shadow: 0 10px 30px rgba(170,138,0,0.5), 0 0 30px rgba(255,215,0,0.4), inset 0 0 20px rgba(255,255,255,0.4); }
+  50% { box-shadow: 0 15px 40px rgba(170,138,0,0.6), 0 0 40px rgba(225,37,27,0.3), inset 0 0 25px rgba(255,255,255,0.5); }
+}
+
+/* Optional: tiny pasta particle burst when entering fullscreen */
+#gustoraFullscreenBtn:active {
+  transform: scale(0.95);
+}
+</style>
+<script>
+// Gustora-themed Fullscreen Toggle (works on all modern browsers + mobile)
+document.getElementById('gustoraFullscreenBtn').addEventListener('click', () => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen?.() || 
+    document.documentElement.webkitRequestFullscreen?.() || 
+    document.documentElement.msRequestFullscreen?.();
+  } else {
+    document.exitFullscreen?.() || 
+    document.webkitExitFullscreen?.() || 
+    document.msExitFullscreen?.();
+  }
+});
+</script>
+<header class="text-center py-4 fade-in visible relative z-10">
+<div class="header-bg max-w-3xl mx-auto">
+<h2 class="text-2xl font-roboto mt-2 text-var(--secondary)"><span style="font-size:48px;"><strong>Chapter 1.1: Basic Concepts about Money</strong></span></h2>
+</div>
+</header>
+<!-- NOTES BUTTON -->
+
+<p><button id="notesBtn">📝</button><!-- NOTES PANEL --></p>
+
+<div id="notesPanel">
+<div class="notes-header"><span>My Notes</span><button id="closeNotes">✕</button></div>
+<textarea id="notesArea" placeholder="Write notes here..."></textarea>
+
+<div class="notes-actions"><button id="downloadNotes">Download</button><button id="clearNotes">Clear</button></div>
+</div>
+
+<p>
+<style type="text/css">#notesBtn,
+#notesPanel {
+  position: fixed !important;
+  transform: none !important;
+  filter: none !important;
+  isolation: isolate;
+}
+
+/* NOTES BUTTON */
+#notesBtn {
+  bottom: 24px;
+  left: 24px;
+  z-index: 2147483647;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 0 25px rgba(250, 204, 21, 0.9);
+}
+
+/* NOTES PANEL */
+#notesPanel {
+  bottom: 96px;
+  left: 24px;
+  width: 320px;
+  max-width: 90vw;
+  background: rgba(15, 23, 42, 0.96);
+  color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+  z-index: 2147483646;
+  display: none;
+  flex-direction: column;
+  backdrop-filter: blur(14px);
+}
+
+/* HEADER */
+.notes-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+/* TEXTAREA */
+#notesArea {
+  background: transparent;
+  border: none;
+  color: white;
+  padding: 14px;
+  height: 150px;
+  resize: none;
+  outline: none;
+}
+
+/* ACTIONS */
+.notes-actions {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+}
+
+.notes-actions button {
+  flex: 1;
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+/* =====================================
+   GLOBAL SAFETY (NO SHIFT / NO SCROLL)
+===================================== */
+html, body {
+  overflow-x: hidden !important;
+}
+
+/* =====================================
+   EVOLUTION TIMELINE FIX
+===================================== */
+@media (max-width: 768px) {
+
+  .evolution-timeline {
+    justify-content: flex-start;
+    gap: 0.9rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 0.5rem 0.25rem 0.75rem;
+  }
+
+  .evolution-step {
+    flex: 0 0 auto;
+    width: 64px;
+    height: 64px;
+    font-size: 14px;
+  }
+}
+
+/* =====================================
+   FLEX ICON ROW FIX (Coins/Paper/Card)
+===================================== */
+@media (max-width: 768px) {
+
+  .flex.justify-around {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}
+
+/* =====================================
+   FLIP CARD FIX (VERY IMPORTANT)
+===================================== */
+@media (max-width: 768px) {
+
+  .flip-card {
+    height: 260px;
+  }
+
+  .flip-card-inner {
+    transform-style: preserve-3d;
+  }
+
+  .flip-card-front,
+  .flip-card-back {
+    position: absolute;
+    backface-visibility: hidden;
+  }
+
+  .grid.grid-cols-1.md\\:grid-cols-3 {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+/* =====================================
+   VIDEO FIX
+===================================== */
+.youtube-video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.youtube-video iframe {
+  width: 100%;
+  height: 100%;
+}
+
+/* =====================================
+   CHART FIX (CRITICAL)
+===================================== */
+canvas {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100%;
+}
+
+/* =====================================
+   AUDIO FIX (KEEP RATIO)
+===================================== */
+@media (max-width: 768px) {
+
+  .audio-container {
+    width: 100% !important;
+    aspect-ratio: 16 / 9;
+    background-size: contain !important;
+  }
+}
+
+/* =====================================
+   HEADER FIX
+===================================== */
+@media (max-width: 768px) {
+
+  .header-bg {
+    width: 95% !important;
+    padding: 1rem !important;
+  }
+
+  .header-bg h2 span {
+    font-size: 22px !important;
+  }
+}
+
+/* =====================================
+   PROGRESS BAR REMOVE
+===================================== */
+@media (max-width: 768px) {
+  .progress-container {
+    display: none;
+  }
+}
+
+/* =====================================
+   GIF BACKGROUND PERFORMANCE FIX
+===================================== */
+@media (max-width: 768px) {
+
+  .bg-gif {
+    animation: none !important;
+    background-size: cover !important;
+    opacity: 0.2;
+  }
+}
+
+/* =====================================
+   HOVER EFFECTS DISABLE (IMPORTANT)
+===================================== */
+@media (max-width: 768px) {
+
+  .hover-scale:hover,
+  .hover-card:hover {
+    transform: none !important;
+  }
+
+  .hover-card-content {
+    position: relative;
+    opacity: 1;
+    transform: none;
+    margin-top: 10px;
+  }
+}
+
+/* =====================================
+   SECTION SPACING FIX
+===================================== */
+section {
+  margin-bottom: 1rem;
+}
+
+/* =====================================
+   FINAL OVERFLOW GUARD
+===================================== */
+* {
+  max-width: 100%;
+}
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("notesBtn");
+  const panel = document.getElementById("notesPanel");
+  const close = document.getElementById("closeNotes");
+  const area = document.getElementById("notesArea");
+  const clearBtn = document.getElementById("clearNotes");
+  const downloadBtn = document.getElementById("downloadNotes");
+
+  const STORAGE_KEY = "user_notes_cache";
+
+  /* 🚨 Escape stacking contexts */
+  document.body.appendChild(panel);
+  document.body.appendChild(btn);
+
+  /* ✅ Load saved notes */
+  area.value = localStorage.getItem(STORAGE_KEY) || "";
+
+  /* Toggle panel */
+  btn.onclick = () => {
+    panel.style.display = panel.style.display === "flex" ? "none" : "flex";
+  };
+
+  close.onclick = () => panel.style.display = "none";
+
+  /* ✅ Auto-save on typing */
+  area.addEventListener("input", () => {
+    localStorage.setItem(STORAGE_KEY, area.value);
+  });
+
+  /* Clear notes */
+  clearBtn.onclick = () => {
+    if (confirm("Clear all notes?")) {
+      area.value = "";
+      localStorage.removeItem(STORAGE_KEY);
+    }
+  };
+
+  /* Download notes */
+  downloadBtn.onclick = () => {
+    const blob = new Blob([area.value], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "my-notes.txt";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+});
+</script></p>
+
+<div class="audio-container">
+<audio controls="" controlslist="nodownload" oncontextmenu="return false;"><source src="https://pa2-cmd.github.io/audio-chapters-budget-boss/m1c1.mp3" type="audio/mp3" /> Your browser does not support the audio element.</audio>
+</div>
+<style type="text/css">.audio-container {
+  position: relative;
+  background: url('https://login.skillizee.io/s/articles/6909826eb2daa47d422b50af/images/Subtitle (4).gif') center center no-repeat;
+  background-size: contain; /* keeps the GIF's aspect ratio */
+  border-radius: 16px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+  margin: 1rem auto;
+  width: 90%;
+  max-width: 900px;
+  aspect-ratio: 1920 / 1080; /* maintain original proportion */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1rem;
+  padding-bottom: 1rem;
+}
+
+/* Modern styled audio */
+.audio-container audio {
+  width: 100%;
+  border-radius: 12px;
+  border: 2px solid #2D2B7E;
+  background: #F5F5FF;
+  height: 50px;
+  padding: 4px;
+  box-shadow: 0 3px 10px rgba(45, 43, 126, 0.3);
+}
+
+/* Lavender-toned player controls */
+audio::-webkit-media-controls-panel {
+  background-color: #E6E6FA;
+  border-radius: 12px;
+}
+
+audio::-webkit-media-controls-play-button,
+audio::-webkit-media-controls-timeline,
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display,
+audio::-webkit-media-controls-volume-slider {
+  filter: hue-rotate(240deg) saturate(1.2);
+}
+</style>
+<main class="max-w-4xl mx-auto px-4 space-y-6 relative z-10"><!-- Section 1: Evolution of Money -->
+<section class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg fade-in">
+<h3 class="text-3xl font-poppins mb-4 text-var(--primary) hover-scale">Evolution of Money from Barter System to Digital Payment Methods</h3>
+
+<p class="text-lg mb-6">Money evolved from direct exchange of goods (barter) to standardized coins, paper currency, and now digital payments like mobile apps and cryptocurrencies.</p>
+
+<div class="youtube-video"><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" src="https://www.youtube.com/embed/gWp5zT3qQnM?rel=0" title="Evolution of Money"></iframe></div>
+
+<div class="evolution-timeline mt-6" role="list" aria-label="Stages in the evolution of money">
+<div class="evolution-step">Barter</div>
+
+<div class="evolution-step">Coins</div>
+
+<div class="evolution-step">Paper</div>
+
+<div class="evolution-step">Digital</div>
+</div>
+
+<div class="text-center mt-4 text-sm">Barter &rarr; Coins &rarr; Paper &rarr; Digital</div>
+</section>
+<!-- Section 2: What is Money? -->
+
+<section class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg fade-in">
+<h3 class="text-3xl font-poppins mb-4 text-var(--primary) hover-scale">What is Money?</h3>
+
+<p class="text-lg mb-6">Money is something everyone accepts in exchange for goods and services. For example, when you buy a toy or food, you use money to pay for it. It can be coins, notes, or digital forms.</p>
+
+<div class="youtube-video"><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" src="https://www.youtube.com/embed/fmQzRy1LH10?rel=0" title="What is Money?"></iframe></div>
+
+<div class="flex justify-around mt-6"><span class="text-4xl fade-in delay-200">Coins</span> <span class="text-4xl fade-in delay-400">Paper</span> <span class="text-4xl fade-in delay-600">Card</span></div>
+</section>
+<!-- Section 3: Why Do We Use Money? → NOW WITH FLIPPABLE CARDS -->
+
+<section class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg fade-in">
+<h3 class="text-3xl font-poppins mb-6 text-var(--primary) hover-scale text-center">Why Do We Use Money?</h3>
+
+<p class="text-lg mb-8 text-center">Money helps us trade things more easily than bartering. Instead of exchanging a chicken for eggs, we use money as a common medium that everyone trusts.</p>
+
+<p class="tap-card-note text-center">Click the cards below to reveal what each job of money means.</p>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10"><!-- Flip Card 1 -->
+<div class="flip-card" tabindex="0" role="button" aria-expanded="false">
+<div class="flip-card-inner">
+<div class="flip-card-front">
+<div class="tap-card-badge">Tap to open</div>
+<div class="text-6xl mb-4">🪙</div>
+
+<p class="text-xl font-bold">Medium of Exchange</p>
+</div>
+
+<div class="flip-card-back">
+<p class="text-base leading-relaxed">Eliminates the need for direct barter. You don&rsquo;t have to find someone who wants what you have and has what you want!</p>
+</div>
+</div>
+</div>
+<!-- Flip Card 2 -->
+
+<div class="flip-card" tabindex="0" role="button" aria-expanded="false">
+<div class="flip-card-inner">
+<div class="flip-card-front">
+<div class="tap-card-badge">Tap to open</div>
+<div class="text-6xl mb-4">🏦</div>
+
+<p class="text-xl font-bold">Store of Value</p>
+</div>
+
+<div class="flip-card-back">
+<p class="text-base leading-relaxed">Allows you to save money for the future &mdash; whether it&rsquo;s for a new bike, college, or emergencies.</p>
+</div>
+</div>
+</div>
+<!-- Flip Card 3 -->
+
+<div class="flip-card" tabindex="0" role="button" aria-expanded="false">
+<div class="flip-card-inner">
+<div class="flip-card-front">
+<div class="tap-card-badge">Tap to open</div>
+<div class="text-6xl mb-4">📟</div>
+
+<p class="text-xl font-bold">Unit of Account</p>
+</div>
+
+<div class="flip-card-back">
+<p class="text-base leading-relaxed">Provides a standard way to measure and compare the value of different goods and services.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- FLIPPABLE CARD STYLES (Add this inside your existing <style> block or <head>) -->
+<style type="text/css">.flip-card {
+    background-color: transparent;
+    width: 100%;
+    height: 260px;
+    perspective: 1000px;
+    cursor: pointer;
+    outline: none;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.flip-card.is-active .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.flip-card-front {
+    background: var(--accent);
+    color: var(--secondary);
+    border: 3px solid var(--primary);
+    gap: 0.75rem;
+}
+
+.flip-card-back {
+    background: var(--primary);
+    color: var(--secondary);
+    transform: rotateY(180deg);
+    border: 3px solid var(--secondary);
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.flip-card:focus-visible .flip-card-front,
+.flip-card:focus-visible .flip-card-back {
+    box-shadow: 0 0 0 4px rgba(58, 99, 81, 0.18), 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.tap-card-note {
+    margin: -0.75rem auto 0;
+    width: fit-content;
+    max-width: 100%;
+    padding: 0.7rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--primary);
+    background: rgba(247, 233, 160, 0.5);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: var(--secondary);
+}
+
+.tap-card-badge {
+    padding: 0.45rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(58, 99, 81, 0.12);
+    border: 1px solid rgba(58, 99, 81, 0.2);
+    font-size: 0.85rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+/* Dark mode support */
+.dark .flip-card-front {
+    background: #3a3a3a;
+    color: #F7E9A0;
+    border-color: #E0C36C;
+}
+.dark .flip-card-back {
+    background: #E0C36C;
+    color: #1a1a1a;
+    border-color: #F7E9A0;
+}
+
+.dark .tap-card-note {
+    background: rgba(58, 58, 58, 0.82);
+    color: #F7E9A0;
+}
+
+.dark .tap-card-badge {
+    background: rgba(247, 233, 160, 0.12);
+    border-color: rgba(247, 233, 160, 0.25);
+    color: #F7E9A0;
+}
+</style>
+<!-- Section 4: Value of Money -->
+<section class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg fade-in">
+<h3 class="text-3xl font-poppins mb-4 text-var(--primary) hover-scale">Value of Money</h3>
+
+<p class="text-lg mb-6"><strong>Meaning:</strong> The value of money is its purchasing power&mdash;how much goods or services it can buy.</p>
+
+<p class="text-lg mb-6"><strong>Changes Over Time:</strong> It varies with inflation (value falls as prices rise) and deflation (value rises as prices fall).</p>
+
+<p class="text-lg mb-6"><strong>Relative Measure:</strong> Money&rsquo;s value depends on what it can purchase, not on a fixed amount.</p>
+
+<p class="text-lg mb-6"><strong>Market Forces:</strong> Controlled by supply and demand&mdash;more demand or less supply raises value, and vice versa.</p>
+
+<p class="text-lg mb-6"><strong>Purpose:</strong> Must hold value to work as a medium of exchange and a store of value.</p>
+<canvas class="w-full h-40" height="566" id="inflationChart" style="display: block; box-sizing: border-box; height: 452.8px; width: 906.4px;" width="1133"></canvas>
+
+<div class="mt-6">
+<h4 class="text-2xl font-poppins mb-2">Key Points</h4>
+
+<div class="space-y-4">
+<div class="key-point">Inflation decreases purchasing power.</div>
+
+<div class="key-point">Deflation increases purchasing power.</div>
+
+<div class="key-point">Value depends on market forces.</div>
+</div>
+</div>
+</section>
+<!-- Section 5: Time Value of Money -->
+
+<section class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg fade-in">
+<h3 class="text-3xl font-poppins mb-4 text-var(--primary) hover-scale">TIME VALUE OF MONEY and Why it is Important in Financial Management</h3>
+
+<div class="flex justify-center mb-6"><span class="text-6xl animate-spin-slow">⏳</span></div>
+
+<p class="text-lg mb-6">Money available today is worth more than the same amount in the future due to its potential earning capacity. This core principle drives saving, investing, and financial planning.</p>
+
+<div class="youtube-video"><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" src="https://www.youtube.com/embed/Zxz0OwTVYdQ?rel=0" title="Time Value of Money"></iframe></div>
+</section>
+</main>
+
+<footer class="text-center py-8 mt-12 relative z-10">
+<div class="max-w-4xl mx-auto">
+<h4 class="text-xl font-poppins mb-2">Budget Boss</h4>
+
+<p class="text-sm">SkilliZee.io</p>
+</div>
+</footer>
+<script>
+        // Fade-in on Scroll
+        const fadeIns = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        });
+        fadeIns.forEach(el => observer.observe(el));
+
+        // Inflation Chart
+        const ctx = document.getElementById('inflationChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4'],
+                datasets: [{
+                    label: 'Inflation Rate (%)',
+                    data: [2, 4, 6, 8],
+                    borderColor: 'var(--secondary)',
+                    fill: false
+                }, {
+                    label: 'Purchasing Power (₹100 base)',
+                    data: [100, 96, 92, 88],
+                    borderColor: 'var(--primary)',
+                    fill: false
+                }]
+            },
+            options: { 
+                responsive: true,
+                scales: { y: { beginAtZero: false } },
+                plugins: { legend: { position: 'top' } }
+            }
+        });
+
+        // Tap cards for mobile and desktop
+        document.querySelectorAll('.flip-card').forEach(card => {
+            const toggleCard = () => {
+                const isActive = card.classList.toggle('is-active');
+                card.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+            };
+
+            card.addEventListener('click', toggleCard);
+            card.addEventListener('keydown', event => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    toggleCard();
+                }
+            });
+        });
+
+        // Progress Bar
+        const progressBar = document.getElementById('progress-bar');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            progressBar.style.height = `${progress}%`;
+        });
+
+        // Confetti on Scroll End
+        window.addEventListener('scroll', () => {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+                confetti({
+                    particleCount: 120,
+                    spread: 80,
+                    origin: { y: 0.6 }
+                });
+            }
+        }, { once: true });
+
+        // Custom Animations
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes slide-down {
+                from { transform: translateY(-50px); opacity: 0; }
+                to { transform: translateY(0); opacity: 1; }
+            }
+            .animate-slide-down { animation: slide-down 1s ease-out; }
+            .animate-spin-slow { animation: rotate 10s linear infinite; }
+            .delay-200 { animation-delay: 0.2s; }
+            .delay-400 { animation-delay: 0.4s; }
+            .delay-600 { animation-delay: 0.6s; }
+            @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        `;
+        document.head.appendChild(style);
+    </script><!-- SMOOTH GIF BACKGROUND -->
+
