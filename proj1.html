@@ -82,7 +82,8 @@ body {
     border-collapse: collapse;
     background: white;
     border-radius: 12px;
-    overflow: hidden;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     margin-top: 1rem;
     font-size: 0.9rem;
@@ -223,6 +224,9 @@ html, body {
 * {
   box-sizing: border-box;
   max-width: 100%;
+}
+table {
+  max-width: none !important;
 }
 
 /* Fix LMS / iframe shifting */
@@ -398,6 +402,9 @@ html, body {
 /* Prevent animation overflow */
 * {
   max-width: 100%;
+}
+table {
+  max-width: none !important;
 }
 
 /* Smooth transitions */

@@ -20,6 +20,11 @@
   box-sizing: border-box;
 }
 
+/* Allow tables to exceed container width for horizontal scroll */
+table {
+  max-width: none !important;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -277,9 +282,11 @@ body .capstone-image-large {
 .budget-table,
 .investment-table,
 .popular-table,
+.summary-table,
 .overflow-x-auto {
   width: 100%;
-  overflow-x: auto;
+  max-width: 100%;
+  overflow-x: auto !important;
   -webkit-overflow-scrolling: touch;
 }
 
