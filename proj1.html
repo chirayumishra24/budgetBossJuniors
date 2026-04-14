@@ -59,12 +59,23 @@ body {
     height: 4px;
     background: linear-gradient(90deg, var(--primary), var(--secondary));
 }
-.header-bg {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-    border-radius: 12px;
-    padding: 2rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
+        .header-bg {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            color: var(--secondary);
+            text-align: center;
+            width: 95%;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+        .header-bg h1 {
+            margin: 5px 0;
+            font-size: clamp(1.8em, 2.5vw, 3em);
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
 .investment-table {
     width: 100%;
     border-collapse: collapse;
@@ -474,11 +485,9 @@ document.getElementById('gustoraFullscreenBtn').addEventListener('click', () => 
   }
 });
 </script>
-<header class="text-center py-8 fade-in visible">
-<div class="header-bg max-w-4xl mx-auto">
-<h1 class="font-poppins font-bold text-[var(--secondary)] leading-tight">
-    <span style="font-size:48px;">Compound Interest &amp; Investment Simulator</span>
-</h1>
+<header class="header-bg fade-in visible">
+<div class="flex items-center justify-between px-4">
+<h1><strong>Compound Interest &amp; Investment Simulator</strong></h1>
 </div>
 </header>
 <!-- NOTES BUTTON -->

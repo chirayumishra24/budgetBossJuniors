@@ -146,13 +146,23 @@ body {
     transition: height 0.3s ease;
 }
 
-/* Header */
-.header-bg {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-    border-radius: 12px;
-    padding: 2rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,.2);
-}
+        .header-bg {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            color: var(--secondary);
+            text-align: center;
+            width: 95%;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+        .header-bg h1 {
+            margin: 5px 0;
+            font-size: clamp(1.8em, 2.5vw, 3em);
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
 
 /* Footer */
 footer {
@@ -317,10 +327,6 @@ table {
         width: 95% !important;
         padding: 1rem !important;
     }
-    .header-bg h1 span,
-    .header-bg h2 span {
-        font-size: clamp(2.2rem, 8vw, 3rem) !important;
-    }
     h3 {
         font-size: clamp(1.8rem, 7vw, 2.5rem) !important;
     }
@@ -450,9 +456,9 @@ table {
 
 <div id="gustoraFullscreenBtn"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6" viewbox="0 0 24 24"> <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path> </svg></div>
 
-<header class="text-center py-4 fade-in visible relative z-10">
-<div class="header-bg max-w-3xl mx-auto">
-<h1 class="text-2xl font-roboto mt-2 text-[var(--secondary)]"><strong><span style="font-size:48px;">Chapter 1.2 &ndash; Types of Money</span></strong></h1>
+<header class="header-bg fade-in visible">
+<div class="flex items-center justify-between px-4">
+<h1><strong>Chapter 1.2 &ndash; Types of Money</strong></h1>
 </div>
 </header>
 <!-- Notes Button -->
